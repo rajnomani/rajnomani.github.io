@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raj Akil Nomani | MBBS graduate, clinical research and health data projects</title>
+<meta name="description" content="Medical graduate (MBBS) building checkable projects in drug safety, clinical data management and clinical research. Code and results are on GitHub.">
+<style>
+:root {
+  --bg: #F3F6F8;
+  --surface: #FFFFFF;
+  --ink: #12303A;
+  --muted: #4E646D;
+  --line: #CAD6DC;
+  --accent: #274690;
+  --alert: #B3422F;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1A24;
+    --surface: #14232F;
+    --ink: #E5EEF2;
+    --muted: #9DB1BB;
+    --line: #2A3C49;
+    --accent: #8FB0FF;
+    --alert: #F08A73;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.wrap {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+a { color: var(--accent); text-underline-offset: 0.2em; }
+a:focus-visible, .btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  font-size: 0.95rem;
+}
+.topbar a { color: var(--muted); text-decoration: none; }
+.topbar a:hover { color: var(--accent); text-decoration: underline; }
+
+.hero { padding: 2.5rem 0 1rem; }
+
+.hero h1 {
+  font-size: clamp(2.6rem, 8vw, 4.75rem);
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  max-width: 36rem;
+  margin: 1.25rem 0 0;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.sub {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+}
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.75rem; }
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--accent);
+}
+.btn:hover { text-decoration: underline; }
+.btn.primary { background: var(--accent); color: var(--bg); }
+
+.km-figure { margin: 3rem 0 0; }
+.km { display: block; width: 100%; height: auto; }
+.km .axis { stroke: var(--line); stroke-width: 1.5; }
+.km .median { stroke: var(--line); stroke-width: 1.5; stroke-dasharray: 4 7; }
+.km .curve { fill: none; stroke-width: 2.75; stroke-linejoin: miter; }
+.km .curve.one { stroke: var(--accent); }
+.km .curve.two { stroke: var(--alert); }
+.km .tick.one { stroke: var(--accent); stroke-width: 2; }
+.km .tick.two { stroke: var(--alert); stroke-width: 2; }
+.km text { fill: var(--muted); font-size: 13px; font-family: inherit; }
+
+.curve {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.6s ease-out 0.2s forwards;
+}
+.curve.two { animation-delay: 0.5s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .curve { animation: none; stroke-dashoffset: 0; }
+  html { scroll-behavior: auto; }
+}
+
+.caption { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--muted); max-width: 40rem; }
+
+section { padding: 4rem 0 0.5rem; }
+section h2 { font-size: clamp(1.7rem, 4vw, 2.2rem); }
+.intro { max-width: 40rem; margin: 0.75rem 0 2rem; color: var(--muted); }
+
+.ledger { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
+.row {
+  display: grid;
+  gap: 0.6rem 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 56rem) {
+  .row { grid-template-columns: 15rem 1fr 1fr; }
+}
+.row h3 { font-size: 1.1rem; }
+.row p { margin: 0; }
+.row .data { margin-top: 0.25rem; font-size: 0.9rem; color: var(--muted); }
+.row .proof { color: var(--ink); }
+
+.note {
+  max-width: 44rem;
+  margin: 1.5rem 0 0;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+}
+
+.principles { display: grid; gap: 2rem; margin-top: 1.5rem; }
+@media (min-width: 56rem) { .principles { grid-template-columns: repeat(3, 1fr); } }
+.principles h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+.principles p { margin: 0; color: var(--muted); }
+
+.skills { display: grid; gap: 0.9rem 2rem; margin: 1.5rem 0 0; max-width: 46rem; }
+@media (min-width: 40rem) { .skills { grid-template-columns: 9rem 1fr; } }
+.skills dt { font-weight: 600; }
+.skills dd { margin: 0; color: var(--muted); }
+
+.prose { max-width: 40rem; }
+.prose p { margin: 0 0 1rem; }
+
+.links { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.4rem; }
+
+footer {
+  margin-top: 5rem;
+  padding: 1.5rem 0 3rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+footer p { margin: 0; }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <nav class="topbar" aria-label="Page sections">
+    <a href="#projects">Projects</a>
+    <a href="#how-i-work">How I work</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <h1>Raj Akil Nomani</h1>
+    <p class="lead">Medical graduate (MBBS) learning to answer clinical questions with data.</p>
+    <p class="sub">I build small projects in drug safety, clinical data management and clinical research, and I check every result before I show it. All the code is on GitHub.</p>
+    <div class="actions">
+      <a class="btn primary" href="#projects">See the projects</a>
+      <a class="btn" href="https://github.com/rxilucifer">GitHub profile</a>
+    </div>
+
+    <figure class="km-figure">
+      <svg class="km" viewBox="0 0 900 220" role="img" aria-label="Illustration of two Kaplan-Meier survival curves falling in steps, with small tick marks where patients were censored">
+        <line class="axis" x1="0" y1="206" x2="900" y2="206"></line>
+        <line class="median" x1="0" y1="110" x2="900" y2="110"></line>
+        <text x="896" y="102" text-anchor="end">median survival (50%)</text>
+
+        <path class="curve two" pathLength="1" d="M0 20 H90 V28 H160 V38 H230 V52 H300 V64 H380 V80 H460 V92 H540 V104 H640 V118 H740 V130 H900"></path>
+        <path class="curve one" pathLength="1" d="M0 20 H60 V34 H110 V50 H150 V66 H210 V84 H250 V98 H300 V118 H350 V130 H420 V150 H480 V160 H560 V172 H650 V182 H760 V194 H900"></path>
+
+        <line class="tick one" x1="180" y1="59" x2="180" y2="73"></line>
+        <line class="tick one" x1="330" y1="111" x2="330" y2="125"></line>
+        <line class="tick one" x1="520" y1="153" x2="520" y2="167"></line>
+        <line class="tick one" x1="700" y1="175" x2="700" y2="189"></line>
+        <line class="tick two" x1="270" y1="45" x2="270" y2="59"></line>
+        <line class="tick two" x1="500" y1="85" x2="500" y2="99"></line>
+        <line class="tick two" x1="800" y1="123" x2="800" y2="137"></line>
+      </svg>
+      <figcaption class="caption">Illustration of Kaplan-Meier curves, the method behind my survival analysis project. Small ticks mark censored patients. These curves are not real data.</figcaption>
+    </figure>
+  </header>
+
+  <main>
+
+    <section id="projects">
+      <h2>Five projects, each with something I checked</h2>
+      <p class="intro">Each repository has a written README with its limits. The label under each name says what kind of data it uses.</p>
+
+      <ul class="ledger">
+        <li class="row">
+          <div>
+            <h3><a href="https://github.com/rxilucifer/clinical-research-analysis">clinical-research-analysis</a></h3>
+            <p class="data">Published teaching dataset</p>
+          </div>
+          <p>A survival analysis written up like a paper: analysis plan first, then Kaplan-Meier curves, Cox regression, and a meta-analysis of four published trials.</p>
+          <p class="proof">Women compared with men, adjusted hazard ratio 0.58 (95% CI 0.41 to 0.80). Pooled SGLT2 inhibitor trials: 0.91 (0.85 to 0.97). A flagged assumption check led to a documented follow-up analysis.</p>
+        </li>
+
+        <li class="row">
+          <div>
+            <h3><a href="https://github.com/rxilucifer/clinical-data-management">clinical-data-management</a></h3>
+            <p class="data">Synthetic trial data</p>
+          </div>
+          <p>What a data management team does on a trial: edit checks, a numbered query log, simplified SDTM-style datasets, a dashboard and a Data Validation Plan.</p>
+          <p class="proof">11 edit checks found all 36 planted errors. 88 of 120 subjects were clean enough to map, and 32 were held back for open queries.</p>
+        </li>
+
+        <li class="row">
+          <div>
+            <h3><a href="https://github.com/rxilucifer/drug-adverse-event-explorer">drug-adverse-event-explorer</a></h3>
+            <p class="data">Real public FDA reports</p>
+          </div>
+          <p>Charts the most reported side effects of a drug, compares two drugs, and calculates a PRR score, a standard way to flag possible safety signals.</p>
+          <p class="proof">Ibuprofen and acetaminophen are compared as percentages of each drug’s own reports, so a drug with more reports does not look worse. The README explains why reports cannot prove causation.</p>
+        </li>
+
+        <li class="row">
+          <div>
+            <h3><a href="https://github.com/rxilucifer/clinical-trials-tracker">clinical-trials-tracker</a></h3>
+            <p class="data">Real public registry data</p>
+          </div>
+          <p>A pipeline and dashboard on ClinicalTrials.gov: which trials are recruiting and where, which records look out of date, and how long trials take.</p>
+          <p class="proof">581 diabetes trials with an Indian site. 35 are recruiting now, and 66 records were flagged as possibly out of date. A script writes the findings report from the data.</p>
+        </li>
+
+        <li class="row">
+          <div>
+            <h3><a href="https://github.com/rxilucifer/healthcare-sql-analysis">healthcare-sql-analysis</a></h3>
+            <p class="data">Synthetic hospital data</p>
+          </div>
+          <p>Five SQL queries on a made-up hospital database, using JOINs, CASE, CTEs and a window function.</p>
+          <p class="proof">Admissions by department, city and age group all add up to the same 863 admissions.</p>
+        </li>
+      </ul>
+
+      <p class="note">These are self-directed learning projects and not work experience. Two use synthetic data and one uses a published teaching dataset, so no patient information is involved in any of them.</p>
+    </section>
+
+    <section id="how-i-work">
+      <h2>How I work</h2>
+      <div class="principles">
+        <div>
+          <h3>Plan before results</h3>
+          <p>I write the question and the method before I run the analysis, and I record every change I make afterwards.</p>
+        </div>
+        <div>
+          <h3>Check against a known answer</h3>
+          <p>I plant errors and see whether my checks find them, make totals agree across queries, and compare numbers with the original papers.</p>
+        </div>
+        <div>
+          <h3>State the limits</h3>
+          <p>Every project says what it cannot show: synthetic data, observational results, flags that are leads and not proof.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <dt>Programming</dt>
+        <dd>Python (pandas, statsmodels, matplotlib, Streamlit), SQL (SQLite, JOINs, CTEs, window functions), Git and GitHub</dd>
+        <dt>Methods</dt>
+        <dd>Survival analysis, Cox regression, meta-analysis, data validation, signal detection with PRR</dd>
+        <dt>Standards</dt>
+        <dd>Working knowledge of CDISC SDTM concepts (simplified, not full conformance)</dd>
+        <dt>Next</dt>
+        <dd>GCP training and R</dd>
+      </dl>
+    </section>
+
+    <section id="about">
+      <h2>About me</h2>
+      <div class="prose">
+        <p>I am a medical graduate (MBBS) moving into clinical research and health data roles. I like questions where a number has to stand up to checking.</p>
+        <p>I started with coding and found that research questions were the part I enjoyed most. These five projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
+        <p>I am looking for entry-level roles in drug safety, clinical data management or clinical operations in India.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul class="links">
+        <li><a href="https://github.com/rxilucifer">GitHub: github.com/rxilucifer</a></li>
+        <!--
+        To add LinkedIn later: put your own address in the line below, then delete the comment markers (the "open" line above it and the "close" line under it).
+        <li><a href="https://www.linkedin.com/in/your-name">LinkedIn: linkedin.com/in/your-name</a></li>
+        -->
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Raj Akil Nomani. Last updated October 2026.</p>
+  </footer>
+
+</div>
+</body>
+</html>
