@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,7 +93,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 30%;
   border-radius: 10px; border: 1px solid var(--line);
 }
-.kmwrap { margin-top: 3rem; max-width: 46rem; }
+.figure.kmwrap { margin-top: 3.2rem; max-width: 46rem; }
 .eyebrow { font: 500 0.82rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .hero h1 { font-size: clamp(2.6rem, 8vw, 4.6rem); letter-spacing: -0.015em; margin-top: 0.6rem; }
 .lead { margin-top: 1.1rem; font-size: 1.3rem; line-height: 1.5; max-width: 34rem; }
@@ -287,7 +281,7 @@ footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--li
       </figure>
 
     <section id="projects">
-      <h2>Six projects, each with something I checked</h2>
+      <h2>Seven projects, each with something I checked</h2>
       <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and each picture is drawn from that project's own numbers.</p>
 
       <div class="filters" role="group" aria-label="Filter projects by area">
@@ -296,10 +290,32 @@ footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--li
         <button class="chip" type="button" data-filter="data" aria-pressed="false">Data management</button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research</button>
         <button class="chip" type="button" data-filter="ops" aria-pressed="false">Operations</button>
-        <span class="count" id="count" role="status" aria-live="polite">Showing 6 of 6</span>
+        <span class="count" id="count" role="status" aria-live="polite">Showing 7 of 7</span>
       </div>
 
       <div class="cards" id="cards">
+
+        <article class="card" data-tags="safety">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Three bars of the share of reports that mention respiratory depression: gabapentin 2.6 percent, pregabalin 1.6 percent, reports with neither drug 0.4 percent.">
+              <text x="10" y="24">gabapentin reports</text>
+              <rect x="10" y="32" width="240" height="16" rx="2" fill="var(--signal)"></rect><text x="258" y="45" class="ink">2.6%</text>
+              <text x="10" y="84">pregabalin reports</text>
+              <rect x="10" y="92" width="148" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="166" y="105" class="ink">1.6%</text>
+              <text x="10" y="144">reports with neither drug</text>
+              <rect x="10" y="152" width="39" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="57" y="165" class="ink">0.4%</text>
+              <text x="0" y="190">Share mentioning respiratory depression, 2024 Q1</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rxilucifer/faers-gabapentin-pregabalin">faers-gabapentin-pregabalin</a></h3>
+            <p class="data">Real public FDA reports</p>
+            <p>A Python pipeline on one quarter of FDA adverse event reports. It compares gabapentin and pregabalin for respiratory depression, with and without an opioid on the report.</p>
+            <p class="proof">Eight checks pass, including a second independent count and a re-run that gives an identical results file. Gabapentin against pregabalin: ROR 1.63 (95% CI 1.02 to 2.60).</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim7">Limits I state</button>
+            <p class="limits" id="lim7" hidden>One quarter of spontaneous reports, with no adjustment for age or illness. The opioid and no-opioid results cannot be told apart. A signal is a lead, not proof that a drug is related to an event.</p>
+          </div>
+        </article>
 
         <article class="card" data-tags="safety">
           <div class="art">
@@ -441,7 +457,7 @@ footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--li
         </article>
       </div>
 
-      <p class="note">These are self-directed learning projects and not work experience. Three use synthetic data and one uses a published teaching dataset, so no patient information is involved in any of them.</p>
+      <p class="note">These are self-directed learning projects and not work experience. Three use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
     </section>
 
     <section id="signal-check">
@@ -536,7 +552,7 @@ footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--li
       <h2>About me</h2>
       <div class="prose">
         <p>I am a medical graduate (MBBS) moving into clinical research and health data roles. I like questions where a number has to stand up to checking.</p>
-        <p>I started with coding and found that research questions were the part I enjoyed most. These six projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
+        <p>I started with coding and found that research questions were the part I enjoyed most. These seven projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
         <p>I am looking for entry-level roles in drug safety, clinical data management or clinical operations in India.</p>
       </div>
     </section>
