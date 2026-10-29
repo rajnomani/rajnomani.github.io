@@ -390,6 +390,156 @@ html { overflow-x: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .reveal, .card.reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* ===== Project explorer ===== */
+#projects.ex-on .cards { display: none; }
+.ex { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; gap: 0; align-items: start; }
+@media (min-width: 52rem) { .ex { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); gap: 2.6rem; } }
+.ex-list { display: flex; flex-direction: column; }
+.ex-item {
+  appearance: none; -webkit-appearance: none; text-align: left; width: 100%; cursor: pointer; color: var(--ink);
+  display: grid; grid-template-columns: 2rem minmax(0, 1fr) 1.2rem; gap: 0.6rem; align-items: center;
+  padding: 0.85rem 0.7rem; background: none; border: 0; border-bottom: 1px solid var(--line); border-radius: 10px;
+  font: inherit; opacity: 0.72; scroll-margin-top: 5rem;
+  transition: opacity 0.2s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.ex-item[hidden] { display: none; }
+.ex-item:hover, .ex-item:focus-visible { opacity: 1; transform: translateX(3px); }
+.ex-item.on {
+  opacity: 1; border-bottom-color: transparent;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.ex-item > span:nth-child(2) { min-width: 0; }
+.ex-list, .ex-panel, .ex-win, .ex-info { min-width: 0; max-width: 100%; }
+.ex-item .n { font: 400 0.8rem var(--mono); color: var(--muted); }
+.ex-item .nm { display: block; font-family: var(--display); font-weight: 600; font-size: 1.15rem; line-height: 1.2; overflow-wrap: anywhere; }
+.ex-item .sub { display: block; font: 400 0.76rem var(--mono); color: var(--muted); margin-top: 0.15rem; }
+.ex-item .ar { color: var(--accent); transition: transform 0.25s ease; }
+.ex-item.on .ar { transform: translateX(3px); }
+.ex-panel { position: relative; animation: exIn 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes exIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.ex-panel::before {
+  content: ""; position: absolute; inset: -6% -4% 20%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%);
+}
+.ex-win {
+  border-radius: 12px; overflow: hidden; background: var(--surface); border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.ex-top { display: flex; align-items: center; gap: 6px; padding: 8px 11px; background: color-mix(in srgb, var(--ink) 6%, var(--surface)); border-bottom: 1px solid var(--line); }
+.ex-top i { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.ex-top i:nth-child(1) { background: #ff5f57; } .ex-top i:nth-child(2) { background: #febc2e; } .ex-top i:nth-child(3) { background: #28c840; }
+.ex-url { margin-left: 8px; flex: 1; min-width: 0; font: 400 0.7rem var(--mono); color: var(--muted); background: var(--paper); border-radius: 6px; padding: 4px 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ex-shot { display: block; width: 100%; height: auto; }
+.ex-chart { background: var(--accent-soft); padding: 1rem 1.1rem; }
+.ex-chart svg { display: block; width: 100%; height: auto; }
+.ex-info { padding-top: 1.1rem; }
+.ex-info .data { font: 400 0.8rem var(--mono); color: var(--muted); margin: 0; }
+.ex-info h3 { font-size: 1.5rem; margin: 0.15rem 0 0.5rem; overflow-wrap: anywhere; }
+.ex-info p { margin: 0 0 0.8rem; }
+.ex-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 0 0 1rem; }
+.ex-chips li { font: 400 0.78rem var(--mono); border: 1px solid var(--line); border-radius: 999px; padding: 0.25rem 0.7rem; background: var(--surface); color: var(--muted); }
+.ex-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.8rem; }
+.ex-actions a, .ex-actions button {
+  font: 600 0.9rem var(--body, inherit); padding: 0.55rem 1rem; border-radius: 8px; cursor: pointer; text-decoration: none;
+  border: 1px solid var(--accent); color: var(--accent); background: none; transition: transform 0.2s ease, background 0.2s ease;
+}
+.ex-actions a { background: var(--accent); color: var(--paper); }
+.ex-actions a:hover, .ex-actions button:hover { transform: translateY(-2px); }
+.ex-info .limits { font-size: 0.95rem; color: var(--muted); border-left: 3px solid var(--signal); padding-left: 0.8rem; }
+@media (max-width: 51.99rem) {
+  .ex-item { scroll-margin-top: 12.5rem; }
+  .ex-panel { margin: 0.2rem 0.2rem 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line); }
+  .ex-info h3 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ex-panel { animation: none; } .ex-item { transition: none; } }
+
+/* terminal preview */
+.ex-panel .data { font: 400 0.8rem var(--mono); color: var(--muted); margin: 0; }
+.ex-name { font-size: 1.5rem; margin: 0.15rem 0 0.8rem; overflow-wrap: anywhere; }
+.ex-term { border-radius: 12px; overflow: hidden; background: #07080a; border: 1px solid #262a31; box-shadow: inset 0 0 40px rgba(127,176,255,0.05), 0 30px 60px -34px rgba(0,0,0,0.7); }
+.ex-term .ex-top { background: #101215; border-bottom: 1px solid #1c2026; }
+.ex-term .ex-url { background: none; color: #6f7884; padding: 0; margin-left: 6px; }
+.ex-tm { padding: 0.9rem 1rem; font: 400 0.8rem/1.75 var(--mono); color: #c6ccd4; min-height: 11rem; }
+.ex-tm .ln { overflow-wrap: anywhere; }
+.ex-tm .pr { color: #7FB0FF; }
+.ex-tm .cm { color: #6f7884; }
+.ex-tm .ok { color: #4ade80; }
+.ex-tm .warn { color: #FF8A6B; }
+.ex-tm .cur { display: inline-block; width: 8px; height: 14px; background: #7FB0FF; vertical-align: -2px; animation: exBlink 1.1s steps(1) infinite; }
+@keyframes exBlink { 50% { opacity: 0; } }
+.ex-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 0.8rem; }
+.ex-tile { border: 1px solid var(--line); border-radius: 12px; padding: 0.7rem 0.9rem; background: var(--surface); }
+.ex-tile b { display: block; font: 600 1.9rem/1.1 var(--display); color: var(--ink); }
+.ex-tile b.s { color: var(--signal); }
+.ex-tile span { font-size: 0.8rem; color: var(--muted); }
+.ex-panel .ex-chart { border-radius: 12px; border: 1px solid var(--line); margin-top: 0.8rem; }
+@media (max-width: 51.99rem) { .ex-name { display: none; } .ex-tm { font-size: 0.74rem; } }
+@media (prefers-reduced-motion: reduce) { .ex-tm .cur { animation: none; } }
+
+.ex-panel .ex-chart { padding: 0.7rem 1rem; }
+.ex-panel .ex-chart svg { max-height: 150px; margin: 0 auto; }
+
+/* ===== Hero: results forest plot ===== */
+.fp { position: relative; padding-top: 1.6rem; }
+.fp-null { position: absolute; top: 0; bottom: 2.9rem; width: 0; border-left: 1.5px dashed var(--muted); z-index: 0; pointer-events: none; display: none; }
+.fp-null span { position: absolute; top: -0.2rem; left: 0; transform: translateX(-50%); white-space: nowrap; font: 400 0.72rem var(--mono); color: var(--muted); }
+.fp-row { display: grid; grid-template-columns: 1fr; gap: 0.5rem; padding: 0.7rem 0 0.9rem; border-bottom: 1px solid var(--line); }
+.fp-lab { display: flex; flex-direction: column; min-width: 0; }
+.fp-t { font-weight: 600; }
+.fp-n { font: 400 0.75rem var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.fp-v { font: 400 0.82rem var(--mono); color: var(--muted); margin-top: 0.1rem; }
+.fp-v b { color: var(--ink); font-size: 1rem; }
+.fp-track { position: relative; height: 1.6rem; }
+.fp-ci { position: absolute; top: 50%; height: 3px; margin-top: -1.5px; border-radius: 2px; background: var(--accent); animation: fpGrow 1.1s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0s); }
+.fp-ci::before, .fp-ci::after { content: ""; position: absolute; top: -5px; width: 3px; height: 13px; border-radius: 2px; background: inherit; }
+.fp-ci::before { left: 0; } .fp-ci::after { right: 0; }
+.fp-dot { position: absolute; top: 50%; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; transform: rotate(45deg); background: var(--accent); border: 2px solid var(--paper); box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 60%, transparent); animation: fpPop 0.6s ease both; animation-delay: calc(var(--d, 0s) + 0.7s); }
+.fp-row.sig .fp-ci, .fp-row.sig .fp-dot { background: var(--signal); }
+.fp-row.sig .fp-dot { box-shadow: 0 0 14px color-mix(in srgb, var(--signal) 60%, transparent); }
+.fp-axis { padding-top: 0.5rem; }
+.fp-ticks { position: relative; height: 1rem; }
+.fp-ticks span { position: absolute; transform: translateX(-50%); font: 400 0.72rem var(--mono); color: var(--muted); }
+.fp-ax-note { font: 400 0.72rem var(--mono); color: var(--muted); text-align: center; margin-top: 0.2rem; }
+@keyframes fpGrow { from { transform: scaleX(0); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fpPop { from { transform: rotate(45deg) scale(0); } to { transform: rotate(45deg) scale(1); } }
+@media (min-width: 40rem) {
+  .fp { padding-left: 0; }
+  .fp-row { grid-template-columns: 15rem 1fr; gap: 1.4rem; align-items: center; }
+  .fp-null { display: block; left: calc(15rem + 1.4rem + (100% - 15rem - 1.4rem) * var(--p1, 0.5229)); }
+  .fp-null span { display: block; }
+  .fp-axis { margin-left: calc(15rem + 1.4rem); }
+}
+@media (prefers-reduced-motion: reduce) { .fp-ci, .fp-dot { animation: none; } .fp-dot { transform: rotate(45deg); } }
+
+/* ===== Research paper section ===== */
+.paper { max-width: 46rem; }
+.paper .data { font: 400 0.8rem var(--mono); color: var(--muted); margin: 0 0 0.3rem; }
+.paper h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.25; margin: 0 0 0.5rem; }
+.paper-by { font: 400 0.85rem var(--mono); color: var(--muted); margin: 0 0 1rem; }
+.paper .ex-actions a { text-decoration: none; }
+.paper .ex-actions a.alt { background: none; color: var(--accent); }
+.paper .more-btn { font: 600 0.9rem var(--body, inherit); padding: 0.55rem 1rem; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: none; cursor: pointer; }
+.paper .limits { font-size: 0.95rem; color: var(--muted); border-left: 3px solid var(--signal); padding-left: 0.8rem; }
+
+.paper { max-width: 56rem; }
+.pp-card { display: grid; grid-template-columns: 15rem minmax(0,1fr); gap: 2.2rem; align-items: center; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 1.6rem; }
+.pp-cover { display: block; text-decoration: none; width: 13.5rem; aspect-ratio: 3/4; border-radius: 8px; background: #f5f2ea; color: #1b1b1b; padding: 1.2rem 1.1rem; position: relative; font-family: Georgia, serif; transform: perspective(900px) rotateY(-12deg) rotateZ(1.5deg); box-shadow: 1.6rem 2rem 2.6rem -1.2rem rgba(0,0,0,.55), 0 0 0 1px rgba(127,127,127,.25); transition: transform .3s; justify-self: center; }
+.pp-cover:hover, .pp-cover:focus-visible { transform: perspective(900px) rotateY(-4deg) rotateZ(0); }
+.pp-cover .pp-k { display: block; font: 0.55rem ui-monospace, Menlo, monospace; letter-spacing: .12em; color: #7a7568; }
+.pp-cover .pp-t { display: block; font-size: 0.92rem; line-height: 1.25; font-weight: 700; margin: .6rem 0 .8rem; }
+.pp-cover i { display: block; height: 5px; background: #cfc9ba; border-radius: 3px; margin: 7px 0; }
+.pp-cover i.s { width: 70%; }
+.pp-cover .pp-f { position: absolute; left: 1.1rem; right: 1.1rem; bottom: .9rem; border-top: 1px solid #cfc9ba; padding-top: .5rem; font: 0.55rem ui-monospace, Menlo, monospace; color: #7a7568; }
+.pp-kick { font: 400 0.78rem var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 .6rem; }
+.pp-pts { margin: 0 0 1.1rem; padding-left: 1.1rem; line-height: 1.7; }
+.pp-pts b { color: var(--ink); }
+@media (max-width: 52rem) { .pp-card { grid-template-columns: minmax(0,1fr); padding: 1.2rem; gap: 1.6rem; } }
+.paper-fig { margin-top: 2rem; max-width: 56rem; }
+.paper > p { margin: 0 0 0.9rem; }
+.paper > p.data { margin-bottom: 0.3rem; }
+.paper .ex-chips { margin-top: 1rem; }
 </style>
 </head>
 <body>
@@ -405,6 +555,7 @@ html { overflow-x: hidden; }
     <a class="name" href="#top">Raj Akil Nomani</a>
     <nav aria-label="Page sections">
       <a href="#projects">Projects</a>
+      <a href="#paper">Research paper</a>
       <a href="#signal-check">Signal check</a>
       <a href="#pipeline">One signal, ten steps</a>
       <a href="#about">About</a>
@@ -437,26 +588,29 @@ html { overflow-x: hidden; }
     </div>
 
       <figure class="figure kmwrap">
-        <svg class="km" viewBox="0 0 900 260" role="img" aria-label="Illustration of two Kaplan-Meier survival curves falling in steps, with small tick marks where patients were censored">
-          <line class="axis" x1="0" y1="246" x2="900" y2="246"></line>
-          <line class="median" x1="0" y1="140" x2="900" y2="140"></line>
-          <text x="896" y="132" text-anchor="end">median survival (50%)</text>
-          <path class="curve two" pathLength="1" d="M0 30 H90 V40 H160 V52 H230 V68 H300 V84 H380 V102 H460 V118 H540 V134 H640 V152 H740 V168 H900"></path>
-          <path class="curve one" pathLength="1" d="M0 30 H60 V46 H110 V66 H150 V86 H210 V108 H250 V128 H300 V150 H350 V168 H420 V190 H480 V204 H560 V218 H650 V228 H760 V238 H900"></path>
-          <line class="tick one" x1="180" y1="79" x2="180" y2="93"></line>
-          <line class="tick one" x1="330" y1="151" x2="330" y2="165"></line>
-          <line class="tick one" x1="520" y1="197" x2="520" y2="211"></line>
-          <line class="tick one" x1="700" y1="223" x2="700" y2="237"></line>
-          <line class="tick two" x1="270" y1="61" x2="270" y2="75"></line>
-          <line class="tick two" x1="500" y1="111" x2="500" y2="125"></line>
-          <line class="tick two" x1="800" y1="161" x2="800" y2="175"></line>
-        </svg>
-        <figcaption class="caption">Kaplan-Meier curves, the method behind my survival analysis. Small ticks mark censored patients. This is an illustration, not real data.</figcaption>
+        <div class="fp" role="img" aria-label="Forest plot of three results from my projects on one ratio scale. ROR 1.63, 95 percent CI 1.02 to 2.60. Adjusted hazard ratio 0.58, CI 0.41 to 0.80. Pooled hazard ratio 0.91, CI 0.85 to 0.97. A value of 1 means no difference.">
+          <div class="fp-null"><span>1 = no difference</span></div>
+          <div class="fp-row sig" style="--d:0.3s">
+  <div class="fp-lab"><span class="fp-t">ROR, gabapentin vs pregabalin</span><span class="fp-n">faers-gabapentin-pregabalin</span><span class="fp-v"><b>1.63</b> (95% CI 1.02 to 2.60)</span></div>
+  <div class="fp-track"><span class="fp-ci" style="left:53.15%;width:40.64%;transform-origin:50.1% 50%"></span><span class="fp-dot" style="left:73.51%"></span></div>
+</div>
+<div class="fp-row acc" style="--d:0.6s">
+  <div class="fp-lab"><span class="fp-t">Adjusted hazard ratio, women vs men</span><span class="fp-n">clinical-research-analysis</span><span class="fp-v"><b>0.58</b> (95% CI 0.41 to 0.80)</span></div>
+  <div class="fp-track"><span class="fp-ci" style="left:13.57%;width:29.03%;transform-origin:51.9% 50%"></span><span class="fp-dot" style="left:28.63%"></span></div>
+</div>
+<div class="fp-row acc" style="--d:1.0s">
+  <div class="fp-lab"><span class="fp-t">Pooled SGLT2 inhibitor trials</span><span class="fp-n">clinical-research-analysis</span><span class="fp-v"><b>0.91</b> (95% CI 0.85 to 0.97)</span></div>
+  <div class="fp-track"><span class="fp-ci" style="left:45.23%;width:5.74%;transform-origin:51.6% 50%"></span><span class="fp-dot" style="left:48.19%"></span></div>
+</div>
+
+          <div class="fp-axis"><div class="fp-ticks"><span style="left:0.00%">0.3</span><span style="left:22.18%">0.5</span><span style="left:52.29%">1</span><span style="left:82.39%">2</span><span style="left:100.00%">3</span></div><div class="fp-ax-note">lower ◂ ratio, log scale ▸ higher</div></div>
+        </div>
+        <figcaption class="caption">Results from three of my projects on one ratio scale. A line is the 95% confidence interval. Where it crosses 1, there is no clear difference.</figcaption>
       </figure>
 
     <section id="projects">
       <h2>Seven projects, each with something I checked</h2>
-      <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and each picture is drawn from that project's own numbers.</p>
+      <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and the preview shows a terminal readout of what the project does and found. Hover a name on a computer, or tap it on a phone.</p>
 
       <div class="filters" role="group" aria-label="Filter projects by area">
         <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
@@ -632,6 +786,61 @@ html { overflow-x: hidden; }
       </div>
 
       <p class="note">These are self-directed learning projects and not work experience. Three use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
+    </section>
+
+    <section id="paper">
+      <h2>Research paper</h2>
+      <p class="intro">A full paper from my drug safety work, written the way a journal paper is: the question, the methods, the results and the limits.</p>
+      <article class="paper">
+        <div class="pp-card">
+          <a class="pp-cover" href="papers/gabapentin-pregabalin-respiratory-depression-faers.pdf" target="_blank" rel="noopener" aria-label="Open the paper (PDF)">
+            <span class="pp-k">RESEARCH PAPER · 2024 FAERS</span>
+            <span class="pp-t">Respiratory depression reports with gabapentin versus pregabalin in the FDA Adverse Event Reporting System, 2024</span>
+            <i></i><i></i><i class="s"></i><i></i><i class="s"></i>
+            <span class="pp-f">Raj Akil Nomani · 26 Oct 2026</span>
+          </a>
+          <div class="pp-body">
+            <p class="pp-kick">The paper in four points</p>
+            <ul class="pp-pts">
+              <li><b>Question:</b> is respiratory depression reported more often with gabapentin than with pregabalin?</li>
+              <li><b>Data:</b> 1,480,549 public FDA reports from the four quarters of 2024.</li>
+              <li><b>Result:</b> yes, ROR 1.81 (95% CI 1.37 to 2.39), with and without an opioid on the report.</li>
+              <li><b>Limit:</b> reports show a pattern, not cause or how often an event happens.</li>
+            </ul>
+            <div class="ex-actions">
+              <a href="papers/gabapentin-pregabalin-respiratory-depression-faers.pdf" target="_blank" rel="noopener">Read online</a>
+              <a class="alt" href="papers/gabapentin-pregabalin-respiratory-depression-faers.pdf" download>Download PDF</a>
+              <a class="alt" href="https://github.com/rajnomani/faers-gabapentin-pregabalin" target="_blank" rel="noopener">Code and results</a>
+              <button class="more-btn" type="button" aria-expanded="false" aria-controls="limPaper">Limits I state</button>
+            </div>
+            <p class="limits" id="limPaper" hidden>These are reports, not rates. FAERS can show a pattern of reporting but not cause or how often an event happens. I did not adjust for age, sex, dose or other illnesses, I used one year only, and the groups without an opioid are small. The findings generate hypotheses.</p>
+          </div>
+        </div>
+      </article>
+      <figure class="figure paper-fig">
+        <div class="fp" role="img" aria-label="Forest plot of the reporting odds ratio for gabapentin versus pregabalin. All reports 1.81, 95 percent CI 1.37 to 2.39. With an opioid 2.10, CI 1.50 to 2.95. Without an opioid 2.00, CI 1.21 to 3.31. Stricter outcome, all reports 1.82, CI 1.35 to 2.46. A value of 1 means no difference.">
+          <div class="fp-null" style="--p1:0.3333"><span>1 = no difference</span></div>
+          <div class="fp-row sig" style="--d:0.2s">
+            <div class="fp-lab"><span class="fp-t">All reports</span><span class="fp-n">5 respiratory terms</span><span class="fp-v"><b>1.81</b> (95% CI 1.37 to 2.39)</span></div>
+            <div class="fp-track"><span class="fp-ci" style="left:48.47%;width:26.76%;transform-origin:50.0% 50%"></span><span class="fp-dot" style="left:61.87%"></span></div>
+          </div>
+          <div class="fp-row acc" style="--d:0.5s">
+            <div class="fp-lab"><span class="fp-t">With an opioid on the report</span><span class="fp-v"><b>2.10</b> (95% CI 1.50 to 2.95)</span></div>
+            <div class="fp-track"><span class="fp-ci" style="left:52.83%;width:32.53%;transform-origin:49.7% 50%"></span><span class="fp-dot" style="left:69.01%"></span></div>
+          </div>
+          <div class="fp-row acc" style="--d:0.8s">
+            <div class="fp-lab"><span class="fp-t">Without an opioid on the report</span><span class="fp-v"><b>2.00</b> (95% CI 1.21 to 3.31)</span></div>
+            <div class="fp-track"><span class="fp-ci" style="left:42.50%;width:48.39%;transform-origin:49.9% 50%"></span><span class="fp-dot" style="left:66.67%"></span></div>
+          </div>
+          <div class="fp-row acc" style="--d:1.1s">
+            <div class="fp-lab"><span class="fp-t">Stricter outcome, all reports</span><span class="fp-n">3 respiratory terms</span><span class="fp-v"><b>1.82</b> (95% CI 1.35 to 2.46)</span></div>
+            <div class="fp-track"><span class="fp-ci" style="left:47.77%;width:28.86%;transform-origin:49.8% 50%"></span><span class="fp-dot" style="left:62.13%"></span></div>
+          </div>
+          
+          <div class="fp-axis"><div class="fp-ticks"><span style="left:0.00%">0.5</span><span style="left:33.33%">1</span><span style="left:66.67%">2</span><span style="left:100.00%">4</span></div><div class="fp-ax-note">lower ◂ reporting odds ratio, log scale ▸ higher</div></div>
+        </div>
+        <figcaption class="caption">Gabapentin versus pregabalin, from the paper. A ratio above 1 means respiratory depression was reported more often with gabapentin. Each line is a 95% confidence interval.</figcaption>
+      </figure>
     </section>
 
     <section id="signal-check">
@@ -1318,6 +1527,209 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
       io.observe(el);
     });
   }
+})();
+</script>
+<script>
+(function () {
+  var section = document.getElementById('projects');
+  var cardsWrap = document.getElementById('cards');
+  if (!section || !cardsWrap) return;
+  var cards = Array.prototype.slice.call(cardsWrap.querySelectorAll('.card'));
+  if (!cards.length) return;
+
+  var short = {
+    'faers-gabapentin-pregabalin': ['8 checks pass', 'ROR 1.63', 'identical re-run'],
+    'pv-regulatory-lifecycle': ['50 of 50 problems found'],
+    'clinical-research-analysis': ['Adjusted HR 0.58'],
+    'clinical-data-management': ['36 of 36 errors found'],
+    'clinical-trials-tracker': ['581 trials', '35 recruiting'],
+    'healthcare-sql-analysis': ['863 admissions, 3 ways']
+  };
+  function txt(el) { return el ? el.textContent.trim() : ''; }
+
+  var items = cards.map(function (card, i) {
+    var a = card.querySelector('h3 a');
+    var href = a ? a.getAttribute('href') : '#';
+    var name = href.replace(/\/+$/, '').split('/').pop();
+    var ps = card.querySelectorAll('.body > p');
+    var svg = card.querySelector('.art svg');
+    var clone = svg ? svg.cloneNode(true) : null;
+    if (clone) { [clone].concat(Array.prototype.slice.call(clone.querySelectorAll('[id]'))).forEach(function (n) { n.removeAttribute('id'); }); }
+    return {
+      card: card, name: name, href: href, svg: clone ? clone.outerHTML : '',
+      data: txt(card.querySelector('.data')),
+      desc: txt(ps[1]), proof: txt(card.querySelector('.proof')), limits: txt(card.querySelector('.limits')),
+      chips: short[name] || [], shot: false
+    };
+  });
+
+  var ex = document.createElement('div');
+  ex.className = 'ex';
+  var list = document.createElement('div');
+  list.className = 'ex-list';
+  var panel = document.createElement('div');
+  panel.className = 'ex-panel';
+  panel.id = 'ex-panel';
+  panel.setAttribute('aria-live', 'polite');
+  ex.appendChild(list); ex.appendChild(panel);
+
+  var btns = items.map(function (it, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'ex-item';
+    b.setAttribute('aria-controls', 'ex-panel'); b.setAttribute('aria-expanded', 'false');
+    var n = document.createElement('span'); n.className = 'n'; n.textContent = '0' + (i + 1);
+    var mid = document.createElement('span');
+    var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = it.name;
+    var sub = document.createElement('span'); sub.className = 'sub';
+    sub.textContent = it.data + (it.chips.length ? ' · ' + it.chips.join(' · ') : '');
+    mid.appendChild(nm); mid.appendChild(sub);
+    var ar = document.createElement('span'); ar.className = 'ar'; ar.setAttribute('aria-hidden', 'true'); ar.textContent = '→';
+    b.appendChild(n); b.appendChild(mid); b.appendChild(ar);
+    list.appendChild(b);
+    return b;
+  });
+  cardsWrap.parentNode.insertBefore(ex, cardsWrap);
+  section.classList.add('ex-on');
+
+  var mq = window.matchMedia('(min-width: 52rem)');
+  var cur = -1;
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+
+  /* what each project's terminal shows. Only real facts from the site text; file names only where I have seen them. */
+  var term = {
+    'faers-gabapentin-pregabalin': { path: 'faers-gabapentin-pregabalin',
+      lines: [['step','load one quarter of FDA adverse event reports'],['step','compare gabapentin and pregabalin, with and without an opioid'],['step','count a second, independent way'],['step','re-run and compare the results file'],
+              ['ok','8 checks pass'],['ok','re-run gives an identical results file'],['ok','ROR 1.63 (95% CI 1.02 to 2.60)'],['warn','one quarter only, no adjustment for age or illness']],
+      tiles: [['1.63','ROR, gabapentin vs pregabalin',0],['8','checks pass',0]] },
+    'pv-regulatory-lifecycle': { path: 'pv-regulatory-lifecycle',
+      lines: [['step','synthetic safety database'],['step','data checks'],['step','signal screening'],['step','reporting deadlines'],['step','draft periodic safety report'],
+              ['ok','all 50 planted data problems found'],['ok','one script re-runs everything, identical results'],['warn','rash met the screening rule, PRR 6.96'],['warn','all data is invented']],
+      tiles: [['50/50','planted problems found',0],['6.96','PRR for rash, a signal to review',1]] },
+    'clinical-research-analysis': { path: 'clinical-research-analysis',
+      lines: [['step','analysis plan, written first'],['step','Kaplan-Meier curves'],['step','Cox regression'],['step','meta-analysis of four published trials'],
+              ['ok','women vs men, adjusted HR 0.58 (0.41 to 0.80)'],['ok','pooled SGLT2 inhibitor trials 0.91 (0.85 to 0.97)'],['warn','assumption check flagged, follow-up documented']],
+      tiles: [['0.58','adjusted hazard ratio',1],['0.91','pooled trials',0]] },
+    'clinical-data-management': { path: 'clinical-data-management',
+      lines: [['step','edit checks'],['step','numbered query log'],['step','simplified SDTM-style datasets'],['step','dashboard'],['step','Data Validation Plan'],
+              ['ok','11 edit checks found all 36 planted errors'],['ok','88 of 120 subjects clean enough to map'],['warn','32 held back for open queries']],
+      tiles: [['36/36','planted errors found',0],['32','held for open queries',1]] },
+    'drug-adverse-event-explorer': { path: 'drug-adverse-event-explorer',
+      lines: [['step','chart the most reported side effects of a drug'],['step','compare two drugs'],['step','calculate a PRR score'],
+              ['ok','ibuprofen vs acetaminophen, as % of each drug’s own reports'],['warn','reports cannot prove causation'],['warn','a high PRR is a lead, not proof']],
+      tiles: [['PRR','a standard safety-signal score',0],['2 × 2','table behind the score',0]] },
+    'clinical-trials-tracker': { path: 'clinical-trials-tracker',
+      lines: [['cmd','python fetch_trials.py','# diabetes trials from ClinicalTrials.gov'],['cmd','python analyze_trials.py','# clean data, summary tables'],['cmd','streamlit run dashboard.py','# dashboard'],['cmd','python make_report.py','# findings report'],
+              ['ok','581 diabetes trials with an Indian site'],['ok','35 recruiting now'],['warn','66 records flagged as possibly out of date']],
+      tiles: [['581','trials found',0],['66','records to check',1]] },
+    'healthcare-sql-analysis': { path: 'healthcare-sql-analysis',
+      lines: [['step','JOINs'],['step','CASE'],['step','CTEs'],['step','a window function'],
+              ['ok','admissions by department add up to 863'],['ok','admissions by city add up to 863'],['ok','admissions by age group add up to 863'],['warn','made-up hospital: technique, not findings']],
+      tiles: [['863','admissions, same total three ways',0],['5','SQL queries',0]] }
+  };
+
+  var runTimer = null;
+  function render(i) {
+    var it = items[i];
+    clearTimeout(runTimer);
+    panel.textContent = '';
+    var t = term[it.name] || { path: it.name, lines: [['ok', it.proof]], tiles: [] };
+    panel.appendChild(el('p', 'data', it.data));
+    panel.appendChild(el('h3', 'ex-name', it.name));
+    var win = el('div', 'ex-term');
+    var top = el('div', 'ex-top');
+    top.appendChild(el('i')); top.appendChild(el('i')); top.appendChild(el('i'));
+    top.appendChild(el('span', 'ex-url', '~/' + t.path));
+    win.appendChild(top);
+    var body = el('div', 'ex-tm');
+    win.appendChild(body);
+    panel.appendChild(win);
+
+    var rows = t.lines.map(function (l) {
+      var d = el('div', 'ln ' + l[0]);
+      if (l[0] === 'cmd') {
+        d.appendChild(el('span', 'pr', '$ ')); d.appendChild(document.createTextNode(l[1] + ' '));
+        d.appendChild(el('span', 'cm', l[2]));
+      } else if (l[0] === 'step') {
+        d.appendChild(el('span', 'pr', '› ')); d.appendChild(el('span', 'cm', l[1]));
+      } else {
+        d.appendChild(el('span', 'mk', l[0] === 'ok' ? '✓ ' : '! ')); d.appendChild(document.createTextNode(l[1]));
+      }
+      d.style.visibility = 'hidden'; body.appendChild(d); return d;
+    });
+    var prompt = el('div', 'ln'); prompt.appendChild(el('span', 'pr', '$ ')); prompt.appendChild(el('span', 'cur'));
+    prompt.style.visibility = 'hidden'; body.appendChild(prompt);
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var k = 0;
+    (function next() {
+      if (k < rows.length) { rows[k].style.visibility = 'visible'; k++; runTimer = setTimeout(next, reduce ? 0 : 170); }
+      else { prompt.style.visibility = 'visible'; }
+    })();
+
+    if (t.tiles.length) {
+      var g = el('div', 'ex-tiles');
+      t.tiles.forEach(function (x) {
+        var tile = el('div', 'ex-tile'); tile.appendChild(el('b', x[2] ? 's' : '', x[0])); tile.appendChild(el('span', '', x[1])); g.appendChild(tile);
+      });
+      panel.appendChild(g);
+    }
+    var ch = el('div', 'ex-chart'); ch.innerHTML = it.svg; panel.appendChild(ch);
+
+    var info = el('div', 'ex-info');
+    info.appendChild(el('p', '', it.desc));
+    var act = el('div', 'ex-actions');
+    var a = el('a', '', 'Open repository →'); a.href = it.href; act.appendChild(a);
+    var lim = el('button', '', 'Limits I state'); lim.type = 'button'; lim.setAttribute('aria-expanded', 'false');
+    var lp = el('p', 'limits', it.limits); lp.hidden = true;
+    lim.addEventListener('click', function () {
+      var open = lim.getAttribute('aria-expanded') === 'true';
+      lim.setAttribute('aria-expanded', open ? 'false' : 'true'); lim.textContent = open ? 'Limits I state' : 'Hide limits'; lp.hidden = open;
+    });
+    act.appendChild(lim); info.appendChild(act); info.appendChild(lp);
+    panel.appendChild(info);
+  }
+
+  function place() {
+    if (cur < 0) return;
+    if (mq.matches) { ex.appendChild(panel); }
+    else { btns[cur].parentNode.insertBefore(panel, btns[cur].nextSibling); }
+  }
+
+  function select(i, user) {
+    if (i === cur || i < 0) return;
+    cur = i;
+    btns.forEach(function (b, k) { b.classList.toggle('on', k === i); b.setAttribute('aria-expanded', k === i ? 'true' : 'false'); });
+    render(i); place();
+    if (user && !mq.matches) { btns[i].scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  }
+
+  var timer = null;
+  btns.forEach(function (b, i) {
+    b.addEventListener('click', function () { select(i, true); });
+    b.addEventListener('focus', function () { select(i, false); });
+    b.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse' || !mq.matches) return;
+      clearTimeout(timer); timer = setTimeout(function () { select(i, false); }, 70);
+    });
+    b.addEventListener('pointerleave', function () { clearTimeout(timer); });
+  });
+  if (mq.addEventListener) mq.addEventListener('change', place);
+
+  /* keep the list in step with the filter chips */
+  function sync() {
+    var shown = 0, first = -1;
+    items.forEach(function (it, i) { var h = it.card.hidden; btns[i].hidden = h; if (!h) { shown++; if (first < 0) first = i; } });
+    if (first >= 0 && (cur < 0 || items[cur].card.hidden)) { var c = cur; cur = -1; select(first, false); }
+  }
+  document.querySelectorAll('[data-filter]').forEach(function (chip) { chip.addEventListener('click', sync); });
+
+
+  window.exSelectByName = function (name) {
+    var all = document.querySelector('[data-filter="all"]'); if (all && all.getAttribute('aria-pressed') !== 'true') all.click();
+    for (var k = 0; k < items.length; k++) { if (items[k].name === name) { select(k, false); break; } }
+    var sec = document.getElementById('projects'); if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  select(0, false);
 })();
 </script>
 </body>
