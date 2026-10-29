@@ -1,6 +1,6 @@
 # Personal website
 
-My portfolio site, live at [rxilucifer.github.io](https://rxilucifer.github.io).
+My portfolio site, live at [rajnomani.github.io](https://rajnomani.github.io).
 
 It introduces five self-directed projects in drug safety, clinical data management and clinical research. Each project has its own repository with a README that explains its limits.
 
