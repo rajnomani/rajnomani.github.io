@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -220,9 +223,180 @@ section h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
 .prose { max-width: 40rem; display: grid; gap: 1rem; }
 .links { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.4rem; }
 footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--line); font-size: 0.9rem; color: var(--muted); }
+
+/* =====================================================================
+   ADDED: 3D background, richer light mode, hero polish, interactions
+   ===================================================================== */
+
+/* Bug fix: the project filter uses the "hidden" attribute, but .card sets
+   display:flex, which stops "hidden" from working. This makes it work. */
+.card[hidden] { display: none; }
+
+/* ---------- Colour upgrade (light mode no longer bland) ---------- */
+:root { --glow: 13%; }
+:root[data-theme="light"] {
+  --paper: #EEF3FC;
+  --surface: #FFFFFF;
+  --ink: #0E1F3D;
+  --muted: #52627F;
+  --line: #D3DDF0;
+  --accent: #2457D6;
+  --accent-soft: #E4ECFF;
+  --signal: #E0502F;
+  --signal-soft: #FDEBE5;
+  --glow: 20%;
+}
+body {
+  background:
+    radial-gradient(60rem 40rem at 85% -5%, color-mix(in srgb, var(--accent) var(--glow), transparent), transparent 60%),
+    radial-gradient(50rem 36rem at -5% 38%, color-mix(in srgb, var(--signal) calc(var(--glow) * 0.6), transparent), transparent 60%),
+    var(--paper);
+  background-attachment: fixed;
+}
+.hero h1 {
+  background: linear-gradient(100deg, var(--ink) 30%, var(--accent) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+section h2::after {
+  content: ""; display: block; width: 48px; height: 3px; margin-top: 0.65rem; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+}
+:root[data-theme="light"] .lab,
+:root[data-theme="light"] .panel,
+:root[data-theme="light"] .note {
+  box-shadow: 0 14px 34px -22px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* ---------- 3D background + glow + progress ---------- */
+#field {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: -1; pointer-events: none;
+}
+.glow {
+  position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px;
+  border-radius: 50%; pointer-events: none; z-index: -1; opacity: 0; transition: opacity 0.4s ease;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 17%, transparent), transparent 65%);
+  will-change: transform;
+}
+.glow.on { opacity: 1; }
+@media (hover: none) { .glow { display: none; } }
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 40; pointer-events: none;
+  transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--signal));
+}
+/* Top bar: the frosted background now spans the whole window, so there is
+   no visible box around the navigation. */
+html { overflow-x: hidden; }
+.bar { background: none; border-bottom: 0; }
+.bar::before {
+  content: ""; position: absolute; z-index: -1; top: 0; bottom: 0;
+  left: 50%; width: 100vw; transform: translateX(-50%);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+/* ---------- Nav underline + active section ---------- */
+.bar nav a { position: relative; padding: 0.15rem 0; }
+.bar nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.25s ease;
+}
+.bar nav a:hover { text-decoration: none; }
+.bar nav a:hover::after, .bar nav a.active::after { transform: scaleX(1); }
+.bar nav a.active { color: var(--ink); }
+
+/* ---------- Buttons ---------- */
+.btn { transition: transform 0.2s ease, box-shadow 0.25s ease; }
+.btn.primary:hover { box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--accent) 75%, transparent); }
+
+/* ---------- Hero polish ---------- */
+.hero > div > * {
+  opacity: 0; transform: translateY(14px);
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.hero > div > *:nth-child(1) { animation-delay: 0.10s; }
+.hero > div > *:nth-child(2) { animation-delay: 0.22s; }
+.hero > div > *:nth-child(3) { animation-delay: 0.36s; }
+.hero > div > *:nth-child(4) { animation-delay: 0.48s; }
+.hero > div > *:nth-child(5) { animation-delay: 0.60s; }
+.hero > div > *:nth-child(6) { animation-delay: 0.72s; }
+.portrait { perspective: 900px; opacity: 0; animation: fadein 1.1s ease 0.4s forwards; }
+.portrait img { will-change: transform; box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--accent) 45%, transparent); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes fadein { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero > div > *, .portrait { animation: none; opacity: 1; transform: none; }
+}
+
+/* ---------- Project cards: tilt, glow, screenshot slot ---------- */
+.card {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
+  transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  background: linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 93%, var(--accent)));
+}
+:root[data-theme="light"] .card { box-shadow: 0 12px 32px -22px color-mix(in srgb, var(--accent) 50%, transparent); }
+.card:hover, :root[data-theme="light"] .card:hover {
+  --ty: -4px;
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 24px 54px -26px color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.card::before {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; transition: opacity 0.3s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 15%, transparent), transparent 60%);
+}
+.card:hover::before { opacity: 1; }
+.card .art {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, var(--accent-soft) 35%, var(--surface)));
+}
+.card .art svg { transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.card:hover .art svg { transform: scale(1.04); }
+.card .art .shot {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top;
+  opacity: 0; transition: opacity 0.35s ease;
+}
+.card.has-shot:hover .art .shot { opacity: 1; }
+
+/* ---------- Hover preview on project names ---------- */
+.peek {
+  position: fixed; left: 0; top: 0; width: min(360px, 86vw); z-index: 60; pointer-events: none; overflow: hidden;
+  border-radius: 12px; background: var(--surface); border: 1px solid var(--line);
+  box-shadow: 0 30px 70px -20px color-mix(in srgb, var(--ink) 45%, transparent), 0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent);
+  opacity: 0; transform: translate3d(-999px, -999px, 0); transition: opacity 0.18s ease;
+}
+.peek.on { opacity: 1; }
+.peek-art {
+  padding: 0.8rem 1rem; border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, var(--accent-soft), color-mix(in srgb, var(--accent-soft) 35%, var(--surface)));
+}
+.peek-art svg, .peek-art img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.peek-body { padding: 0.85rem 1rem 1rem; display: grid; gap: 0.35rem; }
+.peek-name { font: 600 1.15rem var(--display); }
+.peek-tag { font: 400 0.78rem var(--mono); color: var(--muted); }
+.peek-line { font-size: 0.92rem; }
+.peek-hint { font: 500 0.78rem var(--mono); color: var(--accent); margin-top: 0.2rem; }
+@media (hover: none) { .peek { display: none; } }
+
+/* ---------- Scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.in { opacity: 1; transform: none; }
+.card.reveal { transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.card.reveal.in { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .card.reveal { opacity: 1; transform: none; transition: none; }
+}
 </style>
 </head>
 <body>
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
 
 
 <div class="wrap">
@@ -738,5 +912,413 @@ footer { margin-top: 4.5rem; padding-top: 1.4rem; border-top: 1px solid var(--li
 })();
 </script>
 
+
+<div class="peek" id="peek" aria-hidden="true">
+  <div class="peek-art"></div>
+  <div class="peek-body">
+    <div class="peek-name"></div>
+    <div class="peek-tag"></div>
+    <div class="peek-line"></div>
+    <div class="peek-hint">Click the name to open the repository</div>
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+(function () {
+  var canvas = document.getElementById('field');
+  if (!canvas) return;
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var small = window.innerWidth < 700;
+  var COUNT = small ? 700 : 1800;
+  var isLight = root.getAttribute('data-theme') === 'light';
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true });
+  } catch (e) { return; }               // no WebGL: the plain page shows instead
+  var dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
+  renderer.setPixelRatio(dpr);
+  renderer.setClearColor(0x000000, 0);
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 60);
+  camera.position.set(0, 0, 9);
+
+  /* The points: "reports" drifting in fog. A few are the orange "signal". */
+  var positions = new Float32Array(COUNT * 3);
+  var seeds = new Float32Array(COUNT);
+  var signal = new Float32Array(COUNT);
+  for (var i = 0; i < COUNT; i++) {
+    positions[i * 3]     = (Math.random() - 0.5) * 30;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 18;
+    positions[i * 3 + 2] = -10 + Math.random() * 16;
+    seeds[i] = Math.random();
+    signal[i] = Math.random() < 0.015 ? 1 : 0;
+  }
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
+  geo.setAttribute('aSignal', new THREE.BufferAttribute(signal, 1));
+
+  var mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    blending: isLight ? THREE.NormalBlending : THREE.AdditiveBlending,
+    uniforms: {
+      uTime: { value: 0 },
+      uPointer: { value: new THREE.Vector3(999, 999, 0) },
+      uBurst: { value: new THREE.Vector3(0, 0, -100) },
+      uLight: { value: isLight ? 1 : 0 },
+      uPx: { value: dpr }
+    },
+    vertexShader: `
+      attribute float aSeed;
+      attribute float aSignal;
+      uniform float uTime;
+      uniform vec3 uPointer;
+      uniform vec3 uBurst;
+      uniform float uPx;
+      varying float vAlpha;
+      varying float vSignal;
+      void main() {
+        vec3 p = position;
+        float t = uTime * 0.15;
+        p.x += sin(t + aSeed * 40.0) * 0.6;
+        p.y += cos(t * 1.1 + aSeed * 25.0) * 0.6;
+        p.z += sin(t * 0.8 + aSeed * 12.0) * 0.8;
+
+        // points part around the pointer
+        vec2 d = p.xy - uPointer.xy;
+        float dist = length(d);
+        float push = 1.0 - smoothstep(0.0, 3.2, dist);
+        p.xy += (d / max(dist, 0.001)) * push * 1.4;
+        p.z += push * 1.2;
+
+        // click: a ring of motion spreads out from where you clicked
+        vec2 bd = p.xy - uBurst.xy;
+        float bdist = length(bd);
+        float age = uTime - uBurst.z;
+        float q = (bdist - age * 8.0) * 0.9;
+        float wave = exp(-q * q) * (1.0 - smoothstep(0.0, 2.2, age));
+        p.xy += (bd / max(bdist, 0.001)) * wave * 1.6;
+        p.z += wave;
+
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * mv;
+        float depth = -mv.z;
+        float size = mix(2.6, 6.5, aSignal) + push * 3.0 + wave * 3.0;
+        gl_PointSize = size * uPx * (10.0 / depth);
+        float fade = clamp(1.0 - (depth - 3.0) / 20.0, 0.15, 1.0);
+        vAlpha = fade * mix(0.32, 0.9, aSignal) + push * 0.5 + wave * 0.5;
+        vSignal = aSignal;
+      }`,
+    fragmentShader: `
+      uniform float uLight;
+      varying float vAlpha;
+      varying float vSignal;
+      void main() {
+        float r = length(gl_PointCoord - 0.5);
+        float a = 1.0 - smoothstep(0.0, 0.5, r);
+        a *= a;
+        vec3 blue = mix(vec3(0.50, 0.69, 1.0), vec3(0.14, 0.34, 0.84), uLight);
+        vec3 warm = mix(vec3(1.0, 0.54, 0.42), vec3(0.88, 0.31, 0.18), uLight);
+        float k = mix(1.0, 1.5, uLight);
+        gl_FragColor = vec4(mix(blue, warm, vSignal), min(1.0, a * vAlpha * k));
+      }`
+  });
+
+  var points = new THREE.Points(geo, mat);
+  points.frustumCulled = false;
+  scene.add(points);
+
+  var pointer = { x: 0, y: 0, tx: 0, ty: 0, active: false };
+  var halfW = 1, halfH = 1;
+
+  function draw() { renderer.render(scene, camera); }
+
+  function resize() {
+    var w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
+    halfW = halfH * camera.aspect;
+    if (reduce) draw();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  if (reduce) {            // reduced motion: one still frame, no animation
+    mat.uniforms.uTime.value = 5;
+    draw();
+    return;
+  }
+
+  window.addEventListener('pointermove', function (e) {
+    pointer.tx = (e.clientX / window.innerWidth) * 2 - 1;
+    pointer.ty = -((e.clientY / window.innerHeight) * 2 - 1);
+    if (!pointer.active) { pointer.x = pointer.tx; pointer.y = pointer.ty; pointer.active = true; }
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () { pointer.active = false; });
+  window.addEventListener('touchend', function () { pointer.active = false; }, { passive: true });
+
+  /* Click or tap anywhere: send a ring through the points */
+  window.addEventListener('pointerdown', function (e) {
+    if (e.target && e.target.closest && e.target.closest('input, textarea')) return;
+    var nx = (e.clientX / window.innerWidth) * 2 - 1;
+    var ny = -((e.clientY / window.innerHeight) * 2 - 1);
+    mat.uniforms.uBurst.value.set(nx * halfW, ny * halfH, performance.now() / 1000);
+  }, { passive: true });
+
+  /* Fade the field as you scroll past the hero, so text sections stay readable */
+  function onScroll() {
+    canvas.style.opacity = Math.max(0.3, 1 - window.scrollY / (window.innerHeight * 0.9));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var wasLight = isLight;
+  function frame(now) {
+    var light = root.getAttribute('data-theme') === 'light';
+    if (light !== wasLight) {          // theme was switched: change colours and blending
+      wasLight = light;
+      mat.uniforms.uLight.value = light ? 1 : 0;
+      mat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      mat.needsUpdate = true;
+    }
+    mat.uniforms.uTime.value = now / 1000;
+    pointer.x += (pointer.tx - pointer.x) * 0.12;
+    pointer.y += (pointer.ty - pointer.y) * 0.12;
+    if (pointer.active) {
+      mat.uniforms.uPointer.value.set(pointer.x * halfW, pointer.y * halfH, 0);
+    } else {
+      mat.uniforms.uPointer.value.set(999, 999, 0);
+    }
+    camera.position.x += (pointer.tx * 0.8 - camera.position.x) * 0.03;
+    camera.position.y += (pointer.ty * 0.5 - camera.position.y) * 0.03;
+    camera.lookAt(0, 0, 0);
+    draw();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+<script>
+/* Interactions: progress bar, active nav, cursor glow, magnetic buttons, card tilt,
+   count-up numbers, portrait tilt, screenshot slots, hover preview, scroll reveal */
+(function () {
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards = document.querySelectorAll('.card');
+
+  /* Scroll progress bar */
+  var bar = document.getElementById('progress');
+  function prog() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 0) + ')';
+  }
+  window.addEventListener('scroll', prog, { passive: true });
+  window.addEventListener('resize', prog);
+  prog();
+
+  /* Highlight the nav link of the section you are in */
+  var links = {};
+  document.querySelectorAll('.bar nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var so = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle('active', k === en.target.id); });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('section[id]').forEach(function (s) { so.observe(s); });
+  }
+
+  /* Soft glow that follows the cursor */
+  var glow = document.getElementById('glow');
+  if (glow && fine && !still) {
+    var gx = 0, gy = 0, gtx = 0, gty = 0, shown = false;
+    window.addEventListener('pointermove', function (e) {
+      gtx = e.clientX; gty = e.clientY;
+      if (!shown) { gx = gtx; gy = gty; shown = true; glow.classList.add('on'); }
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', function () { glow.classList.remove('on'); shown = false; });
+    (function gloop() {
+      gx += (gtx - gx) * 0.12; gy += (gty - gy) * 0.12;
+      glow.style.transform = 'translate3d(' + gx + 'px,' + gy + 'px,0)';
+      requestAnimationFrame(gloop);
+    })();
+  }
+
+  /* Buttons lean toward the cursor */
+  if (fine && !still) {
+    document.querySelectorAll('.actions .btn').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        var dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+        var dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+        b.style.transform = 'translate(' + (dx * 10) + 'px,' + (dy * 8) + 'px)';
+      });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+  }
+
+  /* Project cards tilt toward the cursor and light up under it */
+  if (fine && !still) {
+    cards.forEach(function (c) {
+      c.addEventListener('pointermove', function (e) {
+        var r = c.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--ry', ((px - 0.5) * 6) + 'deg');
+        c.style.setProperty('--rx', (-(py - 0.5) * 5) + 'deg');
+        c.style.setProperty('--mx', (px * 100) + '%');
+        c.style.setProperty('--my', (py * 100) + '%');
+      });
+      c.addEventListener('pointerleave', function () {
+        c.style.setProperty('--ry', '0deg'); c.style.setProperty('--rx', '0deg');
+      });
+    });
+  }
+
+  /* Hero numbers count up */
+  if (!still) {
+    document.querySelectorAll('.facts b').forEach(function (b) {
+      var finalText = b.textContent;
+      var m = finalText.match(/\d+/g);
+      if (!m) return;
+      var targets = m.map(Number);
+      b.style.display = 'inline-block';
+      b.style.minWidth = b.offsetWidth + 'px';
+      function render(f) {
+        var i = 0;
+        b.textContent = finalText.replace(/\d+/g, function () { return Math.round(targets[i++] * f); });
+      }
+      render(0);
+      var t0 = null;
+      function step(ts) {
+        if (t0 === null) t0 = ts;
+        var f = Math.min(1, (ts - t0) / 1200);
+        f = 1 - Math.pow(1 - f, 3);
+        render(f);
+        if (f < 1) requestAnimationFrame(step); else b.textContent = finalText;
+      }
+      setTimeout(function () { requestAnimationFrame(step); }, 900);
+    });
+  }
+
+  /* Portrait tilts toward the cursor */
+  var fig = document.querySelector('.portrait');
+  var pimg = fig && fig.querySelector('img');
+  if (pimg && fine && !still) {
+    var ptx = 0, pty = 0, pcx = 0, pcy = 0;
+    window.addEventListener('pointermove', function (e) {
+      ptx = (e.clientX / window.innerWidth - 0.5) * 2;
+      pty = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+    (function ploop() {
+      pcx += (ptx - pcx) * 0.08; pcy += (pty - pcy) * 0.08;
+      pimg.style.transform = 'rotateY(' + (pcx * 6) + 'deg) rotateX(' + (-pcy * 5) + 'deg)';
+      requestAnimationFrame(ploop);
+    })();
+  }
+
+  /* Screenshot slots: if images/<repo-name>.png exists, it is used automatically */
+  cards.forEach(function (card) {
+    var a = card.querySelector('h3 a');
+    var art = card.querySelector('.art');
+    if (!a || !art) return;
+    var name = a.getAttribute('href').split('/').pop();
+    var src = 'images/' + name + '.png';
+    var probe = new Image();
+    probe.onload = function () {
+      var el = document.createElement('img');
+      el.className = 'shot'; el.src = src; el.alt = 'Screenshot of ' + name;
+      art.appendChild(el);
+      card.classList.add('has-shot');
+    };
+    probe.src = src;
+  });
+
+  /* Hover preview on project names */
+  var peek = document.getElementById('peek');
+  if (peek && fine) {
+    var pArt = peek.querySelector('.peek-art'), pName = peek.querySelector('.peek-name');
+    var pTag = peek.querySelector('.peek-tag'), pLine = peek.querySelector('.peek-line');
+    var cx = 0, cy = 0, tx = 0, ty = 0, on = false, raf = 0;
+    function target() {
+      var w = peek.offsetWidth, h = peek.offsetHeight;
+      var x = tx + 24, y = ty + 20;
+      if (x + w > window.innerWidth - 12) x = tx - w - 24;
+      if (y + h > window.innerHeight - 12) y = window.innerHeight - 12 - h;
+      return [Math.max(12, x), Math.max(12, y)];
+    }
+    function place() {
+      var t = target();
+      cx += (t[0] - cx) * 0.25; cy += (t[1] - cy) * 0.25;
+      peek.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      if (on) raf = requestAnimationFrame(place);
+    }
+    function show(link, x, y) {
+      var card = link.closest('.card');
+      if (!card) return;
+      pArt.innerHTML = '';
+      var shot = card.querySelector('.art .shot');
+      if (card.classList.contains('has-shot') && shot) {
+        var im = new Image(); im.src = shot.src; im.alt = ''; pArt.appendChild(im);
+      } else {
+        var svg = card.querySelector('.art svg');
+        if (svg) {
+          var c = svg.cloneNode(true);
+          c.removeAttribute('id'); c.removeAttribute('role');
+          c.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
+          c.setAttribute('aria-hidden', 'true');
+          pArt.appendChild(c);
+        }
+      }
+      pName.textContent = link.textContent;
+      var tag = card.querySelector('.data'), proof = card.querySelector('.proof');
+      pTag.textContent = tag ? tag.textContent : '';
+      pLine.textContent = proof ? proof.textContent.split(/\.\s/)[0].replace(/\.$/, '') + '.' : '';
+      tx = x; ty = y;
+      var t = target(); cx = t[0]; cy = t[1];
+      peek.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)';
+      peek.classList.add('on'); on = true;
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(place);
+    }
+    function hide() { peek.classList.remove('on'); on = false; cancelAnimationFrame(raf); }
+    document.querySelectorAll('.card h3 a').forEach(function (a) {
+      a.addEventListener('pointerenter', function (e) { show(a, e.clientX, e.clientY); });
+      a.addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; });
+      a.addEventListener('pointerleave', hide);
+      a.addEventListener('focus', function () { var r = a.getBoundingClientRect(); show(a, r.left + 20, r.bottom); });
+      a.addEventListener('blur', hide);
+    });
+    window.addEventListener('scroll', hide, { passive: true });
+  }
+
+  /* Scroll reveal for headings, cards and panels (plain state again once shown) */
+  if ('IntersectionObserver' in window) {
+    var items = document.querySelectorAll('section h2, .intro, .card, .lab, .panel, .principles .p, .skills, .prose');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        el.classList.add('in');
+        io.unobserve(el);
+        setTimeout(function () { el.classList.remove('reveal', 'in'); el.style.transitionDelay = ''; }, 1000);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    items.forEach(function (el, i) {
+      el.classList.add('reveal');
+      el.style.transitionDelay = ((i % 2) * 0.08) + 's';
+      io.observe(el);
+    });
+  }
+})();
+</script>
 </body>
 </html>
