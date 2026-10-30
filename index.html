@@ -478,6 +478,27 @@ html { overflow-x: hidden; }
 @media (max-width: 51.99rem) { .ex-name { display: none; } .ex-tm { font-size: 0.74rem; } }
 @media (prefers-reduced-motion: reduce) { .ex-tm .cur { animation: none; } }
 
+/* ---------- Show more projects ---------- */
+.ex-more { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; margin-top: 1.1rem; position: relative; }
+.ex-more[hidden] { display: none; }
+.ex-more-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1.25rem; border-radius: 999px;
+  border: 1px solid var(--accent); background: none; color: var(--accent); cursor: pointer;
+  font: 600 0.92rem var(--body); transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.ex-more-btn:hover, .ex-more-btn:focus-visible { background: var(--accent); color: var(--paper); transform: translateY(-2px); }
+.ex-more-btn .n { font: 400 0.78rem var(--mono); opacity: 0.8; }
+.ex-more-btn .ch { display: inline-block; font-style: normal; transition: transform 0.3s ease; }
+.ex-more-btn[aria-expanded="true"] .ch { transform: rotate(180deg); }
+.ex-more-hint { font: 400 0.78rem var(--mono); color: var(--muted); }
+.ex-item.ex-new { animation: exNew 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+.ex-item.ex-new.d1 { animation-delay: 0.08s; } .ex-item.ex-new.d2 { animation-delay: 0.16s; }
+@keyframes exNew { from { opacity: 0; transform: translateY(14px); } to { opacity: 0.72; transform: none; } }
+.ex-list .ex-sep { font: 400 0.76rem var(--mono); color: var(--muted); display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 0.7rem 0.3rem; }
+.ex-list .ex-sep::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.ex-list .ex-sep[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .ex-item.ex-new { animation: none; } .ex-more-btn { transition: none; } }
+
 .ex-panel .ex-chart { padding: 0.7rem 1rem; }
 .ex-panel .ex-chart svg { max-height: 150px; margin: 0 auto; }
 
@@ -691,7 +712,7 @@ footer p{margin:0}
     <a class="name" href="#top">Raj Akil Nomani</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i><i></i><i></i></span><span class="mb-x"><i></i><i></i><i></i></span></button>
     <nav aria-label="Page sections" id="siteNav">
-      <a href="#projects"><span class="nt">Projects</span><small class="nd">Nine projects with terminal previews</small></a>
+      <a href="#projects"><span class="nt">Projects</span><small class="nd">Ten projects with terminal previews</small></a>
       <a href="#paper"><span class="nt">Research paper</span><small class="nd">Gabapentin vs pregabalin, FAERS 2024</small></a>
       <a href="#signal-check"><span class="nt">Signal check</span><small class="nd">Try the PRR calculation yourself</small></a>
       <a href="#pipeline"><span class="nt">One signal, ten steps</span><small class="nd">The ten-step walkthrough</small></a>
@@ -750,7 +771,7 @@ footer p{margin:0}
       </figure>
 
     <section id="projects">
-      <h2>Nine projects, each with something I checked</h2>
+      <h2>Ten projects, each with something I checked</h2>
       <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and the preview shows a terminal readout of what the project does and found. Hover a name on a computer, or tap it on a phone.</p>
 
       <div class="filters" role="group" aria-label="Filter projects by area">
@@ -759,7 +780,7 @@ footer p{margin:0}
         <button class="chip" type="button" data-filter="data" aria-pressed="false">Data management</button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research</button>
         <button class="chip" type="button" data-filter="ops" aria-pressed="false">Operations</button>
-        <span class="count" id="count" role="status" aria-live="polite">Showing 9 of 9</span>
+        <span class="count" id="count" role="status" aria-live="polite">Showing 7 of 10</span>
       </div>
 
       <div class="cards" id="cards">
@@ -833,25 +854,6 @@ footer p{margin:0}
           </div>
         </article>
 
-        <article class="card" data-tags="data">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="120 dots, one per subject. 88 are blue and clean enough to map, 32 are red and held back for open queries.">
-              <g id="dots"></g>
-              <text x="196" y="50" class="big">88</text><text x="196" y="68">clean enough to map</text>
-              <text x="196" y="118" class="big" style="fill:var(--signal)">32</text><text x="196" y="136">held for open queries</text>
-              <text x="0" y="190">120 subjects in a made-up trial</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/clinical-data-management">clinical-data-management</a></h3>
-            <p class="data">Synthetic trial data</p>
-            <p>What a data management team does on a trial: edit checks, a numbered query log, simplified SDTM-style datasets, a dashboard and a Data Validation Plan.</p>
-            <p class="proof">11 edit checks found all 36 planted errors. 88 of 120 subjects were clean enough to map, and 32 were held back for open queries.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim3">Limits I state</button>
-            <p class="limits" id="lim3" hidden>The trial data is synthetic. The datasets are SDTM-style and simplified, not fully conformant. Edit check flags are leads for a query, not proof of an error.</p>
-          </div>
-        </article>
-
         <article class="card" data-tags="safety">
           <div class="art">
             <svg viewBox="0 0 360 196" role="img" aria-label="A two by two table used to calculate a proportional reporting ratio. Cell a is the event for this drug, b other events for this drug, c the event for all other drugs, d other events for all other drugs.">
@@ -878,50 +880,6 @@ footer p{margin:0}
             <p class="proof">Ibuprofen and acetaminophen are compared as percentages of each drug’s own reports, so a drug with more reports does not look worse. The README explains why reports cannot prove causation.</p>
             <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim4">Limits I state</button>
             <p class="limits" id="lim4" hidden>Reports come from whoever chooses to report, so counts are not rates. A high PRR is a lead to investigate and cannot show that a drug causes an event.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="ops">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Three bars on one scale: 581 diabetes trials with an Indian site, 35 recruiting now, 66 records flagged as possibly out of date.">
-              <text x="10" y="24">diabetes trials with an Indian site</text>
-              <rect x="10" y="32" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="45" class="ink">581</text>
-              <text x="10" y="84">recruiting now</text>
-              <rect x="10" y="92" width="18.1" height="16" rx="2" fill="var(--accent)"></rect><text x="36" y="105" class="ink">35</text>
-              <text x="10" y="144">records flagged as possibly out of date</text>
-              <rect x="10" y="152" width="34.1" height="16" rx="2" fill="var(--signal)"></rect><text x="52" y="165" class="sig">66</text>
-              <text x="0" y="190">All bars share one scale</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/clinical-trials-tracker">clinical-trials-tracker</a></h3>
-            <p class="data">Real public registry data</p>
-            <p>A pipeline and dashboard on ClinicalTrials.gov: which trials are recruiting and where, which records look out of date, and how long trials take.</p>
-            <p class="proof">581 diabetes trials with an Indian site. 35 are recruiting now, and 66 records were flagged as possibly out of date. A script writes the findings report from the data.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim5">Limits I state</button>
-            <p class="limits" id="lim5" hidden>Registry data is a snapshot from one day. A flagged record is a lead to check, not proof that the entry is wrong.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="data">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Three equal bars: admissions grouped by department, by city and by age group each add up to 863.">
-              <text x="10" y="24">admissions by department</text>
-              <rect x="10" y="32" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="45" class="ink">863</text>
-              <text x="10" y="84">admissions by city</text>
-              <rect x="10" y="92" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="105" class="ink">863</text>
-              <text x="10" y="144">admissions by age group</text>
-              <rect x="10" y="152" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="165" class="ink">863</text>
-              <text x="0" y="190">Three queries, one total</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/healthcare-sql-analysis">healthcare-sql-analysis</a></h3>
-            <p class="data">Synthetic hospital data</p>
-            <p>Five SQL queries on a made-up hospital database, using JOINs, CASE, CTEs and a window function.</p>
-            <p class="proof">Admissions by department, city and age group all add up to the same 863 admissions.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim6">Limits I state</button>
-            <p class="limits" id="lim6" hidden>The hospital is made up and the query set is small. It shows technique, not hospital findings.</p>
           </div>
         </article>
 
@@ -970,9 +928,102 @@ footer p{margin:0}
             <p class="limits" id="lim9" hidden>The data is invented, and the made-up drug's extra rash and nausea are built in. With 60 subjects per arm, no significance tests are run. The datasets are ADaM-style and simplified, adverse event names are not coded with MedDRA, and the outputs are HTML, CSV and PNG, not submission formats.</p>
           </div>
         </article>
+
+        <article class="card" data-tags="safety data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Bars of the share of held-out phrases coded exactly right, by type: misspelt 100 percent, context 100 percent, multi-symptom 100 percent, negated 90 percent, unmappable 83.3 percent, clean 77.8 percent, plain-language wording 26.7 percent.">
+              <text x="0" y="14">misspelt</text>
+              <rect x="84" y="4" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="14" class="ink">100%</text>
+              <text x="0" y="38">context</text>
+              <rect x="84" y="28" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="38" class="ink">100%</text>
+              <text x="0" y="62">multi</text>
+              <rect x="84" y="52" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="62" class="ink">100%</text>
+              <text x="0" y="86">negated</text>
+              <rect x="84" y="76" width="180" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="272" y="86" class="ink">90%</text>
+              <text x="0" y="110">unmappable</text>
+              <rect x="84" y="100" width="167" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="259" y="110" class="ink">83%</text>
+              <text x="0" y="134">clean</text>
+              <rect x="84" y="124" width="156" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="248" y="134" class="ink">78%</text>
+              <text x="0" y="158" class="sig">plain words</text>
+              <rect x="84" y="148" width="53" height="12" rx="2" fill="var(--signal)"></rect><text x="145" y="158" class="sig">27%</text>
+              <text x="0" y="188">Held-out phrases coded exactly right, 50 of 65</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/ae-verbatim-coder">ae-verbatim-coder</a></h3>
+            <p class="data">Synthetic phrases, open HPO terms</p>
+            <p>A Python tool that suggests standard terms from the Human Phenotype Ontology for messy adverse event wording, such as "felt sick to my stomach". It is tested on made-up phrases against a separate answer key.</p>
+            <p class="proof">On 65 held-out phrases, scored once after the tool was frozen, 50 are exactly right (76.9%). On the 133 phrases used to build it, 110 are (82.7%). 17 independent checks pass and a second full run gives 6 identical files.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim10">Limits I state</button>
+            <p class="limits" id="lim10" hidden>The phrases are made up and cover 20 common events, so real reports will be harder. The sets are small and one clinician reviewed the answer key. The ontology was built for rare-disease features, not drug side effects, so everyday wording is poorly covered: only 4 of 15 plain-language phrases were right. A negation after the symptom ("nausea absent") is missed, and some fuzzy matches are wrong ("all fine" matched Small finger). It suggests codes for a person to review and does not use MedDRA.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="120 dots, one per subject. 88 are blue and clean enough to map, 32 are red and held back for open queries.">
+              <g id="dots"></g>
+              <text x="196" y="50" class="big">88</text><text x="196" y="68">clean enough to map</text>
+              <text x="196" y="118" class="big" style="fill:var(--signal)">32</text><text x="196" y="136">held for open queries</text>
+              <text x="0" y="190">120 subjects in a made-up trial</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/clinical-data-management">clinical-data-management</a></h3>
+            <p class="data">Synthetic trial data</p>
+            <p>What a data management team does on a trial: edit checks, a numbered query log, simplified SDTM-style datasets, a dashboard and a Data Validation Plan.</p>
+            <p class="proof">11 edit checks found all 36 planted errors. 88 of 120 subjects were clean enough to map, and 32 were held back for open queries.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim3">Limits I state</button>
+            <p class="limits" id="lim3" hidden>The trial data is synthetic. The datasets are SDTM-style and simplified, not fully conformant. Edit check flags are leads for a query, not proof of an error.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="ops">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Three bars on one scale: 581 diabetes trials with an Indian site, 35 recruiting now, 66 records flagged as possibly out of date.">
+              <text x="10" y="24">diabetes trials with an Indian site</text>
+              <rect x="10" y="32" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="45" class="ink">581</text>
+              <text x="10" y="84">recruiting now</text>
+              <rect x="10" y="92" width="18.1" height="16" rx="2" fill="var(--accent)"></rect><text x="36" y="105" class="ink">35</text>
+              <text x="10" y="144">records flagged as possibly out of date</text>
+              <rect x="10" y="152" width="34.1" height="16" rx="2" fill="var(--signal)"></rect><text x="52" y="165" class="sig">66</text>
+              <text x="0" y="190">All bars share one scale</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/clinical-trials-tracker">clinical-trials-tracker</a></h3>
+            <p class="data">Real public registry data</p>
+            <p>A pipeline and dashboard on ClinicalTrials.gov: which trials are recruiting and where, which records look out of date, and how long trials take.</p>
+            <p class="proof">581 diabetes trials with an Indian site. 35 are recruiting now, and 66 records were flagged as possibly out of date. A script writes the findings report from the data.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim5">Limits I state</button>
+            <p class="limits" id="lim5" hidden>Registry data is a snapshot from one day. A flagged record is a lead to check, not proof that the entry is wrong.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Three equal bars: admissions grouped by department, by city and by age group each add up to 863.">
+              <text x="10" y="24">admissions by department</text>
+              <rect x="10" y="32" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="45" class="ink">863</text>
+              <text x="10" y="84">admissions by city</text>
+              <rect x="10" y="92" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="105" class="ink">863</text>
+              <text x="10" y="144">admissions by age group</text>
+              <rect x="10" y="152" width="300" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="165" class="ink">863</text>
+              <text x="0" y="190">Three queries, one total</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/healthcare-sql-analysis">healthcare-sql-analysis</a></h3>
+            <p class="data">Synthetic hospital data</p>
+            <p>Five SQL queries on a made-up hospital database, using JOINs, CASE, CTEs and a window function.</p>
+            <p class="proof">Admissions by department, city and age group all add up to the same 863 admissions.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim6">Limits I state</button>
+            <p class="limits" id="lim6" hidden>The hospital is made up and the query set is small. It shows technique, not hospital findings.</p>
+          </div>
+        </article>
       </div>
 
-      <p class="note">These are self-directed learning projects and not work experience. Four use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
+      <p class="note">These are self-directed learning projects and not work experience. Five use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
     </section>
 
     <section id="paper">
@@ -1123,7 +1174,7 @@ footer p{margin:0}
       <h2>About me</h2>
       <div class="prose">
         <p>I am a medical graduate (MBBS) moving into clinical research and health data roles. I like questions where a number has to stand up to checking.</p>
-        <p>I started with coding and found that research questions were the part I enjoyed most. These nine projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
+        <p>I started with coding and found that research questions were the part I enjoyed most. These ten projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
         <p>I am looking for entry-level roles in drug safety, clinical data management or clinical operations in India.</p>
       </div>
     </section>
@@ -1725,6 +1776,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
   if (!cards.length) return;
 
   var short = {
+    'ae-verbatim-coder': ['76.9% on held-out', '17 checks pass'],
     'clinical-tlf-generator': ['39 of 39 checks pass', '4 outputs'],
     'signal-detection-methods': ['4 methods compared', '17.7M cases'],
     'faers-gabapentin-pregabalin': ['8 checks pass', 'ROR 1.63', 'identical re-run'],
@@ -1766,7 +1818,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'ex-item';
     b.setAttribute('aria-controls', 'ex-panel'); b.setAttribute('aria-expanded', 'false');
-    var n = document.createElement('span'); n.className = 'n'; n.textContent = '0' + (i + 1);
+    var n = document.createElement('span'); n.className = 'n'; n.textContent = (i < 9 ? '0' : '') + (i + 1);
     var mid = document.createElement('span');
     var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = it.name;
     var sub = document.createElement('span'); sub.className = 'sub';
@@ -1788,6 +1840,11 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 
   /* what each project's terminal shows. Only real facts from the site text; file names only where I have seen them. */
   var term = {
+    'ae-verbatim-coder': { path: 'ae-verbatim-coder',
+      lines: [['cmd','python src/run_all.py','# build both test sets, score them twice, check'],
+              ['ok','133 development phrases: 110 exactly right (82.7%)'],['ok','65 held-out phrases: 50 exactly right (76.9%), scored once'],['ok','17 of 17 independent checks pass'],['ok','second run gives 6 identical files'],
+              ['warn','plain-language wording: only 4 of 15 right'],['warn','made-up phrases, suggests codes for a person to review']],
+      tiles: [['76.9%','held-out phrases exactly right',0],['4/15','plain-language phrases right',1]] },
     'clinical-tlf-generator': { path: 'clinical-tlf-generator',
       lines: [['cmd','python src/make_data.py','# synthetic subjects and adverse events'],['cmd','python src/run_all.py','# build every output, run twice'],
               ['ok','2 tables, 1 listing and 1 figure built'],['ok','39 of 39 independent checks pass'],['ok','a planted error was caught (38 of 39)'],['ok','re-run gives 9 identical files'],['warn','synthetic data, the drug effect on rash and nausea is built in']],
@@ -1918,19 +1975,60 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
   });
   if (mq.addEventListener) mq.addEventListener('change', place);
 
-  /* keep the list in step with the filter chips */
-  function sync() {
+  /* Show more projects: first PIN stay visible, the rest sit behind a button */
+  var PIN = 7, expanded = false, filt = 'all';
+  var countEl = document.getElementById('count');
+  var hiddenN = items.length - PIN;
+  var more = el('div', 'ex-more');
+  var mbtn = el('button', 'ex-more-btn'); mbtn.type = 'button';
+  mbtn.setAttribute('aria-expanded', 'false'); mbtn.setAttribute('aria-controls', 'ex-list');
+  var mT = el('span', 't'), mN = el('span', 'n'), mC = el('i', 'ch', '\u25BE');
+  mC.setAttribute('aria-hidden', 'true');
+  mbtn.appendChild(mT); mbtn.appendChild(mN); mbtn.appendChild(mC);
+  var mHint = el('span', 'ex-more-hint');
+  more.appendChild(mbtn); more.appendChild(mHint);
+  list.id = 'ex-list';
+  list.appendChild(more);
+  var sep = el('div', 'ex-sep', 'more projects'); sep.hidden = true;
+  if (hiddenN > 0) list.insertBefore(sep, btns[PIN]);
+
+  function applyMore(animate) {
+    var collapsed = !expanded && filt === 'all' && hiddenN > 0;
     var shown = 0, first = -1;
-    items.forEach(function (it, i) { var h = it.card.hidden; btns[i].hidden = h; if (!h) { shown++; if (first < 0) first = i; } });
-    if (pm.matches) { if (cur >= 0 && items[cur].card.hidden) collapse(); return; }
-    if (first >= 0 && (cur < 0 || items[cur].card.hidden)) { var c = cur; cur = -1; select(first, false); }
+    items.forEach(function (it, i) {
+      var h = it.card.hidden || (collapsed && i >= PIN);
+      var was = btns[i].hidden;
+      btns[i].hidden = h;
+      btns[i].classList.remove('ex-new', 'd1', 'd2');
+      if (animate && was && !h && i >= PIN) { btns[i].classList.add('ex-new', 'd' + Math.min(i - PIN, 2)); }
+      if (!h) { shown++; if (first < 0) first = i; }
+    });
+    sep.hidden = collapsed || filt !== 'all';
+    more.hidden = filt !== 'all' || hiddenN <= 0;
+    mbtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    mT.textContent = expanded ? 'Show fewer projects' : 'Show ' + hiddenN + ' more projects';
+    mN.textContent = expanded ? '(back to ' + PIN + ')' : '(' + PIN + ' of ' + items.length + ' shown)';
+    mHint.textContent = expanded ? '' : 'The filters above also search the hidden ones.';
+    if (countEl) countEl.textContent = 'Showing ' + shown + ' of ' + items.length;
+    if (pm.matches) { if (cur >= 0 && btns[cur].hidden) collapse(); return; }
+    if (first >= 0 && (cur < 0 || btns[cur].hidden)) { cur = -1; select(first, false); }
   }
-  document.querySelectorAll('[data-filter]').forEach(function (chip) { chip.addEventListener('click', sync); });
+  mbtn.addEventListener('click', function () {
+    expanded = !expanded; applyMore(true);
+    if (!expanded) { var s = document.getElementById('projects'); if (s && s.getBoundingClientRect().top < 0) s.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+
+  /* keep the list in step with the filter chips */
+  function sync() { applyMore(false); }
+  document.querySelectorAll('[data-filter]').forEach(function (chip) {
+    chip.addEventListener('click', function () { filt = chip.getAttribute('data-filter'); sync(); });
+  });
+  applyMore(false);
 
 
   window.exSelectByName = function (name) {
     var all = document.querySelector('[data-filter="all"]'); if (all && all.getAttribute('aria-pressed') !== 'true') all.click();
-    for (var k = 0; k < items.length; k++) { if (items[k].name === name) { select(k, false); break; } }
+    for (var k = 0; k < items.length; k++) { if (items[k].name === name) { if (k >= PIN && !expanded) { expanded = true; applyMore(false); } select(k, false); break; } }
     var sec = document.getElementById('projects'); if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   if (!pm.matches) select(0, false);
