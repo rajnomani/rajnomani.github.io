@@ -691,7 +691,7 @@ footer p{margin:0}
     <a class="name" href="#top">Raj Akil Nomani</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i><i></i><i></i></span><span class="mb-x"><i></i><i></i><i></i></span></button>
     <nav aria-label="Page sections" id="siteNav">
-      <a href="#projects"><span class="nt">Projects</span><small class="nd">Seven projects with terminal previews</small></a>
+      <a href="#projects"><span class="nt">Projects</span><small class="nd">Eight projects with terminal previews</small></a>
       <a href="#paper"><span class="nt">Research paper</span><small class="nd">Gabapentin vs pregabalin, FAERS 2024</small></a>
       <a href="#signal-check"><span class="nt">Signal check</span><small class="nd">Try the PRR calculation yourself</small></a>
       <a href="#pipeline"><span class="nt">One signal, ten steps</span><small class="nd">The ten-step walkthrough</small></a>
@@ -750,7 +750,7 @@ footer p{margin:0}
       </figure>
 
     <section id="projects">
-      <h2>Seven projects, each with something I checked</h2>
+      <h2>Eight projects, each with something I checked</h2>
       <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and the preview shows a terminal readout of what the project does and found. Hover a name on a computer, or tap it on a phone.</p>
 
       <div class="filters" role="group" aria-label="Filter projects by area">
@@ -759,7 +759,7 @@ footer p{margin:0}
         <button class="chip" type="button" data-filter="data" aria-pressed="false">Data management</button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research</button>
         <button class="chip" type="button" data-filter="ops" aria-pressed="false">Operations</button>
-        <span class="count" id="count" role="status" aria-live="polite">Showing 7 of 7</span>
+        <span class="count" id="count" role="status" aria-live="polite">Showing 8 of 8</span>
       </div>
 
       <div class="cards" id="cards">
@@ -924,6 +924,30 @@ footer p{margin:0}
             <p class="limits" id="lim6" hidden>The hospital is made up and the query set is small. It shows technique, not hospital findings.</p>
           </div>
         </article>
+
+        <article class="card" data-tags="safety">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Four bars of the share of drug-event pairs flagged as a signal: PRR 42.8 percent, ROR 46.1 percent, IC 37.8 percent, EBGM 24.4 percent.">
+              <text x="10" y="14">PRR</text>
+              <rect x="10" y="20" width="278" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="296" y="32" class="ink">42.8%</text>
+              <text x="10" y="54">ROR</text>
+              <rect x="10" y="60" width="300" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="72" class="ink">46.1%</text>
+              <text x="10" y="94">IC</text>
+              <rect x="10" y="100" width="246" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="264" y="112" class="ink">37.8%</text>
+              <text x="10" y="134">EBGM, the strictest</text>
+              <rect x="10" y="140" width="159" height="14" rx="2" fill="var(--signal)"></rect><text x="177" y="152" class="sig">24.4%</text>
+              <text x="0" y="188">Share of 1,191,181 drug-event pairs flagged</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/signal-detection-methods">signal-detection-methods</a></h3>
+            <p class="data">Real public FDA reports</p>
+            <p>Compares four standard signal detection methods (PRR, ROR, IC and EBGM) on 14 years of FDA adverse event reports, 2012 Q4 to 2026 Q3, with gabapentin and pregabalin as the worked example.</p>
+            <p class="proof">EBGM is the most conservative method: it flags 24.4% of drug-event pairs, against 37.8% for IC, 42.8% for PRR and 46.1% for ROR. The analysis covers 17,730,954 cases and 1,191,181 pairs. Almost every EBGM signal is also flagged by the other three methods.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim8">Limits I state</button>
+            <p class="limits" id="lim8" hidden>Reports show reporting disproportion, not incidence or risk. Duplicates and confounding by indication remain possible. The EBGM code is my own and is not validated against the FDA's reference software. The 30-events-per-case cutoff is a judgement call, and changing it changes the results.</p>
+          </div>
+        </article>
       </div>
 
       <p class="note">These are self-directed learning projects and not work experience. Three use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
@@ -1077,7 +1101,7 @@ footer p{margin:0}
       <h2>About me</h2>
       <div class="prose">
         <p>I am a medical graduate (MBBS) moving into clinical research and health data roles. I like questions where a number has to stand up to checking.</p>
-        <p>I started with coding and found that research questions were the part I enjoyed most. These seven projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
+        <p>I started with coding and found that research questions were the part I enjoyed most. These eight projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
         <p>I am looking for entry-level roles in drug safety, clinical data management or clinical operations in India.</p>
       </div>
     </section>
@@ -1679,6 +1703,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
   if (!cards.length) return;
 
   var short = {
+    'signal-detection-methods': ['4 methods compared', '17.7M cases'],
     'faers-gabapentin-pregabalin': ['8 checks pass', 'ROR 1.63', 'identical re-run'],
     'pv-regulatory-lifecycle': ['50 of 50 problems found'],
     'clinical-research-analysis': ['Adjusted HR 0.58'],
@@ -1740,6 +1765,10 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
 
   /* what each project's terminal shows. Only real facts from the site text; file names only where I have seen them. */
   var term = {
+    'signal-detection-methods': { path: 'signal-detection-methods',
+      lines: [['cmd','python src/counts.py','# 2x2 counts per drug-event pair'],['cmd','python src/signals.py','# PRR, ROR, IC'],['cmd','python src/ebgm.py','# EBGM and four-method comparison'],
+              ['ok','17,730,954 cases, 1,191,181 drug-event pairs'],['ok','EBGM flags 24.4% of pairs, IC 37.8%, PRR 42.8%, ROR 46.1%'],['ok','all four methods agree on 290,845 pairs'],['warn','my own EBGM code, not validated against FDA software']],
+      tiles: [['24.4%','pairs flagged by EBGM, the strictest',1],['4','methods compared',0]] },
     'faers-gabapentin-pregabalin': { path: 'faers-gabapentin-pregabalin',
       lines: [['step','load one quarter of FDA adverse event reports'],['step','compare gabapentin and pregabalin, with and without an opioid'],['step','count a second, independent way'],['step','re-run and compare the results file'],
               ['ok','8 checks pass'],['ok','re-run gives an identical results file'],['ok','ROR 1.63 (95% CI 1.02 to 2.60)'],['warn','one quarter only, no adjustment for age or illness']],
