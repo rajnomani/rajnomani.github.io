@@ -780,7 +780,7 @@ footer p{margin:0}
         <button class="chip" type="button" data-filter="data" aria-pressed="false">Data management</button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research</button>
         <button class="chip" type="button" data-filter="ops" aria-pressed="false">Operations</button>
-        <span class="count" id="count" role="status" aria-live="polite">Showing 7 of 10</span>
+        <span class="count" id="count" role="status" aria-live="polite">Showing 5 of 10</span>
       </div>
 
       <div class="cards" id="cards">
@@ -828,6 +828,101 @@ footer p{margin:0}
             <p class="proof">All 50 planted data problems found. Rash was the only event that met the screening rule, mostly at 25 mg and age 65 and over (PRR 6.96). Where the Indian guidance is silent, the documents say so instead of guessing. One script re-runs everything and confirms identical results.</p>
             <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim1">Limits I state</button>
             <p class="limits" id="lim1" hidden>All data is invented. My checks were written knowing which problems were planted, so a perfect score does not mean they would catch problems nobody planned for. Rash is a signal to review, not proof of cause.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="safety">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Four bars of the share of drug-event pairs flagged as a signal: PRR 42.8 percent, ROR 46.1 percent, IC 37.8 percent, EBGM 24.4 percent.">
+              <text x="10" y="14">PRR</text>
+              <rect x="10" y="20" width="278" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="296" y="32" class="ink">42.8%</text>
+              <text x="10" y="54">ROR</text>
+              <rect x="10" y="60" width="300" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="72" class="ink">46.1%</text>
+              <text x="10" y="94">IC</text>
+              <rect x="10" y="100" width="246" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="264" y="112" class="ink">37.8%</text>
+              <text x="10" y="134">EBGM, the strictest</text>
+              <rect x="10" y="140" width="159" height="14" rx="2" fill="var(--signal)"></rect><text x="177" y="152" class="sig">24.4%</text>
+              <text x="0" y="188">Share of 1,191,181 drug-event pairs flagged</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/signal-detection-methods">signal-detection-methods</a></h3>
+            <p class="data">Real public FDA reports</p>
+            <p>Compares four standard signal detection methods (PRR, ROR, IC and EBGM) on 14 years of FDA adverse event reports, 2012 Q4 to 2026 Q3, with gabapentin and pregabalin as the worked example.</p>
+            <p class="proof">EBGM is the most conservative method: it flags 24.4% of drug-event pairs, against 37.8% for IC, 42.8% for PRR and 46.1% for ROR. The analysis covers 17,730,954 cases and 1,191,181 pairs. Almost every EBGM signal is also flagged by the other three methods.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim8">Limits I state</button>
+            <p class="limits" id="lim8" hidden>Reports show reporting disproportion, not incidence or risk. Duplicates and confounding by indication remain possible. The EBGM code is my own and is not validated against the FDA's reference software. The 30-events-per-case cutoff is a judgement call, and changing it changes the results.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="safety data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Bars of the share of held-out phrases coded exactly right, by type: misspelt 100 percent, context 100 percent, multi-symptom 100 percent, negated 90 percent, unmappable 83.3 percent, clean 77.8 percent, plain-language wording 26.7 percent.">
+              <text x="0" y="14">misspelt</text>
+              <rect x="84" y="4" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="14" class="ink">100%</text>
+              <text x="0" y="38">context</text>
+              <rect x="84" y="28" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="38" class="ink">100%</text>
+              <text x="0" y="62">multi</text>
+              <rect x="84" y="52" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="62" class="ink">100%</text>
+              <text x="0" y="86">negated</text>
+              <rect x="84" y="76" width="180" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="272" y="86" class="ink">90%</text>
+              <text x="0" y="110">unmappable</text>
+              <rect x="84" y="100" width="167" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="259" y="110" class="ink">83%</text>
+              <text x="0" y="134">clean</text>
+              <rect x="84" y="124" width="156" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="248" y="134" class="ink">78%</text>
+              <text x="0" y="158" class="sig">plain words</text>
+              <rect x="84" y="148" width="53" height="12" rx="2" fill="var(--signal)"></rect><text x="145" y="158" class="sig">27%</text>
+              <text x="0" y="188">Held-out phrases coded exactly right, 50 of 65</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/ae-verbatim-coder">ae-verbatim-coder</a></h3>
+            <p class="data">Synthetic phrases, open HPO terms</p>
+            <p>A Python tool that suggests standard terms from the Human Phenotype Ontology for messy adverse event wording, such as "felt sick to my stomach". It is tested on made-up phrases against a separate answer key.</p>
+            <p class="proof">On 65 held-out phrases, scored once after the tool was frozen, 50 are exactly right (76.9%). On the 133 phrases used to build it, 110 are (82.7%). 17 independent checks pass and a second full run gives 6 identical files.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim10">Limits I state</button>
+            <p class="limits" id="lim10" hidden>The phrases are made up and cover 20 common events, so real reports will be harder. The sets are small and one clinician reviewed the answer key. The ontology was built for rare-disease features, not drug side effects, so everyday wording is poorly covered: only 4 of 15 plain-language phrases were right. A negation after the symptom ("nausea absent") is missed, and some fuzzy matches are wrong ("all fine" matched Small finger). It suggests codes for a person to review and does not use MedDRA.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Paired bars from the synthetic trial: any adverse event 38.3 percent on placebo and 65.0 percent on the made-up drug, rash 3.3 percent and 16.7 percent.">
+              <text x="10" y="14">any adverse event</text>
+              <rect x="10" y="20" width="141" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="159" y="31" class="ink">38.3% placebo</text>
+              <rect x="10" y="40" width="240" height="14" rx="2" fill="var(--signal)"></rect><text x="258" y="51" class="sig">65.0% Drug X</text>
+              <text x="10" y="84">rash</text>
+              <rect x="10" y="90" width="12" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="30" y="101" class="ink">3.3% placebo</text>
+              <rect x="10" y="110" width="62" height="14" rx="2" fill="var(--signal)"></rect><text x="80" y="121" class="sig">16.7% Drug X</text>
+              <text x="0" y="188">Share of 60 subjects per arm, invented data</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/clinical-tlf-generator">clinical-tlf-generator</a></h3>
+            <p class="data">Synthetic trial data</p>
+            <p>A Python pipeline that builds standard clinical trial outputs from a made-up trial: a demographics table, an adverse event summary table, an adverse event listing and a figure.</p>
+            <p class="proof">39 independent checks recount every number a second way and all pass. A number I changed on purpose was caught (38 of 39), and a second full run gives 9 identical files.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim9">Limits I state</button>
+            <p class="limits" id="lim9" hidden>The data is invented, and the made-up drug's extra rash and nausea are built in. With 60 subjects per arm, no significance tests are run. The datasets are ADaM-style and simplified, adverse event names are not coded with MedDRA, and the outputs are HTML, CSV and PNG, not submission formats.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="data">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="120 dots, one per subject. 88 are blue and clean enough to map, 32 are red and held back for open queries.">
+              <g id="dots"></g>
+              <text x="196" y="50" class="big">88</text><text x="196" y="68">clean enough to map</text>
+              <text x="196" y="118" class="big" style="fill:var(--signal)">32</text><text x="196" y="136">held for open queries</text>
+              <text x="0" y="190">120 subjects in a made-up trial</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/clinical-data-management">clinical-data-management</a></h3>
+            <p class="data">Synthetic trial data</p>
+            <p>What a data management team does on a trial: edit checks, a numbered query log, simplified SDTM-style datasets, a dashboard and a Data Validation Plan.</p>
+            <p class="proof">11 edit checks found all 36 planted errors. 88 of 120 subjects were clean enough to map, and 32 were held back for open queries.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim3">Limits I state</button>
+            <p class="limits" id="lim3" hidden>The trial data is synthetic. The datasets are SDTM-style and simplified, not fully conformant. Edit check flags are leads for a query, not proof of an error.</p>
           </div>
         </article>
 
@@ -880,101 +975,6 @@ footer p{margin:0}
             <p class="proof">Ibuprofen and acetaminophen are compared as percentages of each drug’s own reports, so a drug with more reports does not look worse. The README explains why reports cannot prove causation.</p>
             <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim4">Limits I state</button>
             <p class="limits" id="lim4" hidden>Reports come from whoever chooses to report, so counts are not rates. A high PRR is a lead to investigate and cannot show that a drug causes an event.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="safety">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Four bars of the share of drug-event pairs flagged as a signal: PRR 42.8 percent, ROR 46.1 percent, IC 37.8 percent, EBGM 24.4 percent.">
-              <text x="10" y="14">PRR</text>
-              <rect x="10" y="20" width="278" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="296" y="32" class="ink">42.8%</text>
-              <text x="10" y="54">ROR</text>
-              <rect x="10" y="60" width="300" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="72" class="ink">46.1%</text>
-              <text x="10" y="94">IC</text>
-              <rect x="10" y="100" width="246" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="264" y="112" class="ink">37.8%</text>
-              <text x="10" y="134">EBGM, the strictest</text>
-              <rect x="10" y="140" width="159" height="14" rx="2" fill="var(--signal)"></rect><text x="177" y="152" class="sig">24.4%</text>
-              <text x="0" y="188">Share of 1,191,181 drug-event pairs flagged</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/signal-detection-methods">signal-detection-methods</a></h3>
-            <p class="data">Real public FDA reports</p>
-            <p>Compares four standard signal detection methods (PRR, ROR, IC and EBGM) on 14 years of FDA adverse event reports, 2012 Q4 to 2026 Q3, with gabapentin and pregabalin as the worked example.</p>
-            <p class="proof">EBGM is the most conservative method: it flags 24.4% of drug-event pairs, against 37.8% for IC, 42.8% for PRR and 46.1% for ROR. The analysis covers 17,730,954 cases and 1,191,181 pairs. Almost every EBGM signal is also flagged by the other three methods.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim8">Limits I state</button>
-            <p class="limits" id="lim8" hidden>Reports show reporting disproportion, not incidence or risk. Duplicates and confounding by indication remain possible. The EBGM code is my own and is not validated against the FDA's reference software. The 30-events-per-case cutoff is a judgement call, and changing it changes the results.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="data">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Paired bars from the synthetic trial: any adverse event 38.3 percent on placebo and 65.0 percent on the made-up drug, rash 3.3 percent and 16.7 percent.">
-              <text x="10" y="14">any adverse event</text>
-              <rect x="10" y="20" width="141" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="159" y="31" class="ink">38.3% placebo</text>
-              <rect x="10" y="40" width="240" height="14" rx="2" fill="var(--signal)"></rect><text x="258" y="51" class="sig">65.0% Drug X</text>
-              <text x="10" y="84">rash</text>
-              <rect x="10" y="90" width="12" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="30" y="101" class="ink">3.3% placebo</text>
-              <rect x="10" y="110" width="62" height="14" rx="2" fill="var(--signal)"></rect><text x="80" y="121" class="sig">16.7% Drug X</text>
-              <text x="0" y="188">Share of 60 subjects per arm, invented data</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/clinical-tlf-generator">clinical-tlf-generator</a></h3>
-            <p class="data">Synthetic trial data</p>
-            <p>A Python pipeline that builds standard clinical trial outputs from a made-up trial: a demographics table, an adverse event summary table, an adverse event listing and a figure.</p>
-            <p class="proof">39 independent checks recount every number a second way and all pass. A number I changed on purpose was caught (38 of 39), and a second full run gives 9 identical files.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim9">Limits I state</button>
-            <p class="limits" id="lim9" hidden>The data is invented, and the made-up drug's extra rash and nausea are built in. With 60 subjects per arm, no significance tests are run. The datasets are ADaM-style and simplified, adverse event names are not coded with MedDRA, and the outputs are HTML, CSV and PNG, not submission formats.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="safety data">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Bars of the share of held-out phrases coded exactly right, by type: misspelt 100 percent, context 100 percent, multi-symptom 100 percent, negated 90 percent, unmappable 83.3 percent, clean 77.8 percent, plain-language wording 26.7 percent.">
-              <text x="0" y="14">misspelt</text>
-              <rect x="84" y="4" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="14" class="ink">100%</text>
-              <text x="0" y="38">context</text>
-              <rect x="84" y="28" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="38" class="ink">100%</text>
-              <text x="0" y="62">multi</text>
-              <rect x="84" y="52" width="200" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="292" y="62" class="ink">100%</text>
-              <text x="0" y="86">negated</text>
-              <rect x="84" y="76" width="180" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="272" y="86" class="ink">90%</text>
-              <text x="0" y="110">unmappable</text>
-              <rect x="84" y="100" width="167" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="259" y="110" class="ink">83%</text>
-              <text x="0" y="134">clean</text>
-              <rect x="84" y="124" width="156" height="12" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="248" y="134" class="ink">78%</text>
-              <text x="0" y="158" class="sig">plain words</text>
-              <rect x="84" y="148" width="53" height="12" rx="2" fill="var(--signal)"></rect><text x="145" y="158" class="sig">27%</text>
-              <text x="0" y="188">Held-out phrases coded exactly right, 50 of 65</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/ae-verbatim-coder">ae-verbatim-coder</a></h3>
-            <p class="data">Synthetic phrases, open HPO terms</p>
-            <p>A Python tool that suggests standard terms from the Human Phenotype Ontology for messy adverse event wording, such as "felt sick to my stomach". It is tested on made-up phrases against a separate answer key.</p>
-            <p class="proof">On 65 held-out phrases, scored once after the tool was frozen, 50 are exactly right (76.9%). On the 133 phrases used to build it, 110 are (82.7%). 17 independent checks pass and a second full run gives 6 identical files.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim10">Limits I state</button>
-            <p class="limits" id="lim10" hidden>The phrases are made up and cover 20 common events, so real reports will be harder. The sets are small and one clinician reviewed the answer key. The ontology was built for rare-disease features, not drug side effects, so everyday wording is poorly covered: only 4 of 15 plain-language phrases were right. A negation after the symptom ("nausea absent") is missed, and some fuzzy matches are wrong ("all fine" matched Small finger). It suggests codes for a person to review and does not use MedDRA.</p>
-          </div>
-        </article>
-
-        <article class="card" data-tags="data">
-          <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="120 dots, one per subject. 88 are blue and clean enough to map, 32 are red and held back for open queries.">
-              <g id="dots"></g>
-              <text x="196" y="50" class="big">88</text><text x="196" y="68">clean enough to map</text>
-              <text x="196" y="118" class="big" style="fill:var(--signal)">32</text><text x="196" y="136">held for open queries</text>
-              <text x="0" y="190">120 subjects in a made-up trial</text>
-            </svg>
-          </div>
-          <div class="body">
-            <h3><a href="https://github.com/rajnomani/clinical-data-management">clinical-data-management</a></h3>
-            <p class="data">Synthetic trial data</p>
-            <p>What a data management team does on a trial: edit checks, a numbered query log, simplified SDTM-style datasets, a dashboard and a Data Validation Plan.</p>
-            <p class="proof">11 edit checks found all 36 planted errors. 88 of 120 subjects were clean enough to map, and 32 were held back for open queries.</p>
-            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim3">Limits I state</button>
-            <p class="limits" id="lim3" hidden>The trial data is synthetic. The datasets are SDTM-style and simplified, not fully conformant. Edit check flags are leads for a query, not proof of an error.</p>
           </div>
         </article>
 
@@ -1050,6 +1050,7 @@ footer p{margin:0}
               <a href="papers/gabapentin-pregabalin-respiratory-depression-faers.pdf" target="_blank" rel="noopener">Read online</a>
               <a class="alt" href="papers/gabapentin-pregabalin-respiratory-depression-faers.pdf" download>Download PDF</a>
               <a class="alt" href="https://github.com/rajnomani/faers-gabapentin-pregabalin" target="_blank" rel="noopener">Code and results</a>
+              <a class="alt" href="https://doi.org/10.5281/zenodo.23827750" target="_blank" rel="noopener">Preprint on Zenodo (DOI)</a>
               <button class="more-btn" type="button" aria-expanded="false" aria-controls="limPaper">Limits I state</button>
             </div>
             <p class="limits" id="limPaper" hidden>These are reports, not rates. FAERS can show a pattern of reporting but not cause or how often an event happens. I did not adjust for age, sex, dose or other illnesses, I used one year only, and the groups without an opioid are small. The findings generate hypotheses.</p>
@@ -1976,7 +1977,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
   if (mq.addEventListener) mq.addEventListener('change', place);
 
   /* Show more projects: first PIN stay visible, the rest sit behind a button */
-  var PIN = 7, expanded = false, filt = 'all';
+  var PIN = 5, expanded = false, filt = 'all';
   var countEl = document.getElementById('count');
   var hiddenN = items.length - PIN;
   var more = el('div', 'ex-more');
