@@ -712,7 +712,7 @@ footer p{margin:0}
     <a class="name" href="#top">Raj Akil Nomani</a>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i><i></i><i></i></span><span class="mb-x"><i></i><i></i><i></i></span></button>
     <nav aria-label="Page sections" id="siteNav">
-      <a href="#projects"><span class="nt">Projects</span><small class="nd">Ten projects with terminal previews</small></a>
+      <a href="#projects"><span class="nt">Projects</span><small class="nd">Eleven projects with terminal previews</small></a>
       <a href="#paper"><span class="nt">Research paper</span><small class="nd">Gabapentin vs pregabalin, FAERS 2024</small></a>
       <a href="#signal-check"><span class="nt">Signal check</span><small class="nd">Try the PRR calculation yourself</small></a>
       <a href="#pipeline"><span class="nt">One signal, ten steps</span><small class="nd">The ten-step walkthrough</small></a>
@@ -771,7 +771,7 @@ footer p{margin:0}
       </figure>
 
     <section id="projects">
-      <h2>Ten projects, each with something I checked</h2>
+      <h2>Eleven projects, each with something I checked</h2>
       <p class="intro">Every repository has a README with its limits. The label under each name says what kind of data it uses, and the preview shows a terminal readout of what the project does and found. Hover a name on a computer, or tap it on a phone.</p>
 
       <div class="filters" role="group" aria-label="Filter projects by area">
@@ -780,7 +780,7 @@ footer p{margin:0}
         <button class="chip" type="button" data-filter="data" aria-pressed="false">Data management</button>
         <button class="chip" type="button" data-filter="research" aria-pressed="false">Research</button>
         <button class="chip" type="button" data-filter="ops" aria-pressed="false">Operations</button>
-        <span class="count" id="count" role="status" aria-live="polite">Showing 5 of 10</span>
+        <span class="count" id="count" role="status" aria-live="polite">Showing 7 of 11</span>
       </div>
 
       <div class="cards" id="cards">
@@ -828,6 +828,30 @@ footer p{margin:0}
             <p class="proof">All 50 planted data problems found. Rash was the only event that met the screening rule, mostly at 25 mg and age 65 and over (PRR 6.96). Where the Indian guidance is silent, the documents say so instead of guessing. One script re-runs everything and confirms identical results.</p>
             <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim1">Limits I state</button>
             <p class="limits" id="lim1" hidden>All data is invented. My checks were written knowing which problems were planted, so a perfect score does not mean they would catch problems nobody planned for. Rash is a signal to review, not proof of cause.</p>
+          </div>
+        </article>
+
+        <article class="card" data-tags="safety">
+          <div class="art">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Four bars from 30 made-up adverse event cases: 30 cases, 25 valid, 13 serious, and 11 serious and not on the drug label, which is highlighted.">
+              <text x="10" y="14">30 fictional cases</text>
+              <rect x="10" y="20" width="300" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="318" y="32" class="ink">30</text>
+              <text x="10" y="54">25 valid reports</text>
+              <rect x="10" y="60" width="250" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="268" y="72" class="ink">25</text>
+              <text x="10" y="94">13 serious</text>
+              <rect x="10" y="100" width="130" height="14" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="148" y="112" class="ink">13</text>
+              <text x="10" y="134">11 serious and not on the label</text>
+              <rect x="10" y="140" width="110" height="14" rx="2" fill="var(--signal)"></rect><text x="128" y="152" class="sig">11</text>
+              <text x="0" y="188">Made-up cases and drugs, five reports deliberately incomplete</text>
+            </svg>
+          </div>
+          <div class="body">
+            <h3><a href="https://github.com/rajnomani/icsr-case-processor">icsr-case-processor</a></h3>
+            <p class="data">Fictional cases, fictional drugs</p>
+            <p>A small model of the first steps of handling an adverse event report: is it valid, is it serious, is the event on the drug label, how likely is it that the drug caused it, and a short case narrative written from a fixed template.</p>
+            <p class="proof">All 5 incomplete reports were caught. Of 25 valid cases, 13 were serious and 11 of those were not on the label. A second check written in SQL recomputes every result and all 5 of its checks pass. A result I changed on purpose was caught, and a second full run gives 5 identical files.</p>
+            <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim11">Limits I state</button>
+            <p class="limits" id="lim11" hidden>All data is invented, including the drug label and the causality answers. Events are matched to the label by keywords, not MedDRA coding, so synonyms can be missed. The checker shows that two versions of the same rules agree, not that the rules are clinically right. There are no reporting deadlines, duplicate checks or follow-up versions.</p>
           </div>
         </article>
 
@@ -1023,7 +1047,7 @@ footer p{margin:0}
         </article>
       </div>
 
-      <p class="note">These are self-directed learning projects and not work experience. Five use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
+      <p class="note">These are self-directed learning projects and not work experience. Six use synthetic data, one uses a published teaching dataset and the rest use public registry or FDA data, so no private patient information is involved in any of them.</p>
     </section>
 
     <section id="paper">
@@ -1175,7 +1199,7 @@ footer p{margin:0}
       <h2>About me</h2>
       <div class="prose">
         <p>I am a medical graduate (MBBS) moving into clinical research and health data roles. I like questions where a number has to stand up to checking.</p>
-        <p>I started with coding and found that research questions were the part I enjoyed most. These ten projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
+        <p>I started with coding and found that research questions were the part I enjoyed most. These eleven projects are how I am learning the work of drug safety, clinical data management and clinical research teams.</p>
         <p>I am looking for entry-level roles in drug safety, clinical data management or clinical operations in India.</p>
       </div>
     </section>
@@ -1782,6 +1806,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
     'signal-detection-methods': ['4 methods compared', '17.7M cases'],
     'faers-gabapentin-pregabalin': ['8 checks pass', 'ROR 1.63', 'identical re-run'],
     'pv-regulatory-lifecycle': ['50 of 50 problems found'],
+    'icsr-case-processor': ['5 of 5 checks pass', '11 serious, not on label'],
     'clinical-research-analysis': ['Adjusted HR 0.58'],
     'clinical-data-management': ['36 of 36 errors found'],
     'clinical-trials-tracker': ['581 trials', '35 recruiting'],
@@ -1862,6 +1887,11 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
       lines: [['step','synthetic safety database'],['step','data checks'],['step','signal screening'],['step','reporting deadlines'],['step','draft periodic safety report'],
               ['ok','all 50 planted data problems found'],['ok','one script re-runs everything, identical results'],['warn','rash met the screening rule, PRR 6.96'],['warn','all data is invented']],
       tiles: [['50/50','planted problems found',0],['6.96','PRR for rash, a signal to review',1]] },
+    'icsr-case-processor': { path: 'icsr-case-processor',
+      lines: [['cmd','python3 run_all.py','# five steps, run twice, check, plant an error'],
+              ['ok','25 of 30 cases valid, all 5 incomplete ones caught'],['ok','13 serious, 11 of them not on the drug label'],['ok','5 of 5 independent SQL checks pass'],['ok','second run gives 5 identical files'],['ok','a planted error was caught'],
+              ['warn','fictional data, keywords not MedDRA, no reporting deadlines']],
+      tiles: [['11','serious cases not on the label',1],['5/5','independent checks pass',0]] },
     'clinical-research-analysis': { path: 'clinical-research-analysis',
       lines: [['step','analysis plan, written first'],['step','Kaplan-Meier curves'],['step','Cox regression'],['step','meta-analysis of four published trials'],
               ['ok','women vs men, adjusted HR 0.58 (0.41 to 0.80)'],['ok','pooled SGLT2 inhibitor trials 0.91 (0.85 to 0.97)'],['warn','assumption check flagged, follow-up documented']],
@@ -1977,7 +2007,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
   if (mq.addEventListener) mq.addEventListener('change', place);
 
   /* Show more projects: first PIN stay visible, the rest sit behind a button */
-  var PIN = 5, expanded = false, filt = 'all';
+  var PIN = 7, expanded = false, filt = 'all';
   var countEl = document.getElementById('count');
   var hiddenN = items.length - PIN;
   var more = el('div', 'ex-more');
