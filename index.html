@@ -750,11 +750,11 @@ footer p{margin:0}
     </div>
 
       <figure class="figure kmwrap">
-        <div class="fp" role="img" aria-label="Forest plot of three results from my projects on one ratio scale. ROR 1.63, 95 percent CI 1.02 to 2.60. Adjusted hazard ratio 0.58, CI 0.41 to 0.80. Pooled hazard ratio 0.91, CI 0.85 to 0.97. A value of 1 means no difference.">
+        <div class="fp" role="img" aria-label="Forest plot of three results from my projects on one ratio scale. ROR 1.81, 95 percent CI 1.37 to 2.39. Adjusted hazard ratio 0.58, CI 0.41 to 0.80. Pooled hazard ratio 0.91, CI 0.85 to 0.97. A value of 1 means no difference.">
           <div class="fp-null"><span>1 = no difference</span></div>
           <div class="fp-row sig" style="--d:0.3s">
-  <div class="fp-lab"><span class="fp-t">ROR, gabapentin vs pregabalin</span><span class="fp-n">faers-gabapentin-pregabalin</span><span class="fp-v"><b>1.63</b> (95% CI 1.02 to 2.60)</span></div>
-  <div class="fp-track"><span class="fp-ci" style="left:53.15%;width:40.64%;transform-origin:50.1% 50%"></span><span class="fp-dot" style="left:73.51%"></span></div>
+  <div class="fp-lab"><span class="fp-t">ROR, gabapentin vs pregabalin</span><span class="fp-n">faers-gabapentin-pregabalin</span><span class="fp-v"><b>1.81</b> (95% CI 1.37 to 2.39)</span></div>
+  <div class="fp-track"><span class="fp-ci" style="left:65.96%;width:24.17%;transform-origin:50.0% 50%"></span><span class="fp-dot" style="left:78.06%"></span></div>
 </div>
 <div class="fp-row acc" style="--d:0.6s">
   <div class="fp-lab"><span class="fp-t">Adjusted hazard ratio, women vs men</span><span class="fp-n">clinical-research-analysis</span><span class="fp-v"><b>0.58</b> (95% CI 0.41 to 0.80)</span></div>
@@ -787,23 +787,23 @@ footer p{margin:0}
 
         <article class="card" data-tags="safety">
           <div class="art">
-            <svg viewBox="0 0 360 196" role="img" aria-label="Three bars of the share of reports that mention respiratory depression: gabapentin 2.6 percent, pregabalin 1.6 percent, reports with neither drug 0.4 percent.">
+            <svg viewBox="0 0 360 196" role="img" aria-label="Three bars of the share of reports that mention respiratory depression: gabapentin 2.3 percent, pregabalin 1.3 percent, reports with neither drug 0.5 percent.">
               <text x="10" y="24">gabapentin reports</text>
-              <rect x="10" y="32" width="240" height="16" rx="2" fill="var(--signal)"></rect><text x="258" y="45" class="ink">2.6%</text>
+              <rect x="10" y="32" width="233" height="16" rx="2" fill="var(--signal)"></rect><text x="251" y="45" class="ink">2.3%</text>
               <text x="10" y="84">pregabalin reports</text>
-              <rect x="10" y="92" width="148" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="166" y="105" class="ink">1.6%</text>
+              <rect x="10" y="92" width="130" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="148" y="105" class="ink">1.3%</text>
               <text x="10" y="144">reports with neither drug</text>
-              <rect x="10" y="152" width="39" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="57" y="165" class="ink">0.4%</text>
-              <text x="0" y="190">Share mentioning respiratory depression, 2024 Q1</text>
+              <rect x="10" y="152" width="50" height="16" rx="2" fill="var(--accent)" opacity="0.55"></rect><text x="68" y="165" class="ink">0.5%</text>
+              <text x="0" y="190">Share mentioning respiratory depression, 2024</text>
             </svg>
           </div>
           <div class="body">
             <h3><a href="https://github.com/rajnomani/faers-gabapentin-pregabalin">faers-gabapentin-pregabalin</a></h3>
             <p class="data">Real public FDA reports</p>
-            <p>A Python pipeline on one quarter of FDA adverse event reports. It compares gabapentin and pregabalin for respiratory depression, with and without an opioid on the report.</p>
-            <p class="proof">Eight checks pass, including a second independent count and a re-run that gives an identical results file. Gabapentin against pregabalin: ROR 1.63 (95% CI 1.02 to 2.60).</p>
+            <p>A Python pipeline on the four quarters of 2024 of FDA adverse event reports (1,480,549 reports after cleaning). It compares gabapentin and pregabalin for respiratory depression, with and without an opioid on the report.</p>
+            <p class="proof">Nine checks pass, including a second independent count and a re-run that gives an identical results file. Gabapentin against pregabalin: ROR 1.81 (95% CI 1.37 to 2.39).</p>
             <button class="more-btn" type="button" aria-expanded="false" aria-controls="lim7">Limits I state</button>
-            <p class="limits" id="lim7" hidden>One quarter of spontaneous reports, with no adjustment for age or illness. The opioid and no-opioid results cannot be told apart. A signal is a lead, not proof that a drug is related to an event.</p>
+            <p class="limits" id="lim7" hidden>Spontaneous reports from 2024 only, with no adjustment for age, sex, dose or illness. The opioid and no-opioid results cannot be told apart. A signal is a lead, not proof that a drug is related to an event.</p>
           </div>
         </article>
 
@@ -1804,7 +1804,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
     'ae-verbatim-coder': ['76.9% on held-out', '17 checks pass'],
     'clinical-tlf-generator': ['39 of 39 checks pass', '4 outputs'],
     'signal-detection-methods': ['4 methods compared', '17.7M cases'],
-    'faers-gabapentin-pregabalin': ['8 checks pass', 'ROR 1.63', 'identical re-run'],
+    'faers-gabapentin-pregabalin': ['9 checks pass', 'ROR 1.81', 'identical re-run'],
     'pv-regulatory-lifecycle': ['50 of 50 problems found'],
     'icsr-case-processor': ['5 of 5 checks pass', '11 serious, not on label'],
     'clinical-research-analysis': ['Adjusted HR 0.58'],
@@ -1880,9 +1880,9 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.m
               ['ok','17,730,954 cases, 1,191,181 drug-event pairs'],['ok','EBGM flags 24.4% of pairs, IC 37.8%, PRR 42.8%, ROR 46.1%'],['ok','all four methods agree on 290,845 pairs'],['warn','my own EBGM code, not validated against FDA software']],
       tiles: [['24.4%','pairs flagged by EBGM, the strictest',1],['4','methods compared',0]] },
     'faers-gabapentin-pregabalin': { path: 'faers-gabapentin-pregabalin',
-      lines: [['step','load one quarter of FDA adverse event reports'],['step','compare gabapentin and pregabalin, with and without an opioid'],['step','count a second, independent way'],['step','re-run and compare the results file'],
-              ['ok','8 checks pass'],['ok','re-run gives an identical results file'],['ok','ROR 1.63 (95% CI 1.02 to 2.60)'],['warn','one quarter only, no adjustment for age or illness']],
-      tiles: [['1.63','ROR, gabapentin vs pregabalin',0],['8','checks pass',0]] },
+      lines: [['step','load four quarters of 2024 FDA adverse event reports'],['step','compare gabapentin and pregabalin, with and without an opioid'],['step','count a second, independent way'],['step','re-run and compare the results file'],
+              ['ok','9 checks pass'],['ok','re-run gives an identical results file'],['ok','ROR 1.81 (95% CI 1.37 to 2.39)'],['warn','2024 only, no adjustment for age or illness']],
+      tiles: [['1.81','ROR, gabapentin vs pregabalin',0],['9','checks pass',0]] },
     'pv-regulatory-lifecycle': { path: 'pv-regulatory-lifecycle',
       lines: [['step','synthetic safety database'],['step','data checks'],['step','signal screening'],['step','reporting deadlines'],['step','draft periodic safety report'],
               ['ok','all 50 planted data problems found'],['ok','one script re-runs everything, identical results'],['warn','rash met the screening rule, PRR 6.96'],['warn','all data is invented']],
